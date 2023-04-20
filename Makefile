@@ -6,13 +6,13 @@
 #    By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 21:01:46 by aarbaoui          #+#    #+#              #
-#    Updated: 2023/03/29 12:42:40 by aarbaoui         ###   ########.fr        #
+#    Updated: 2023/04/20 00:33:30 by aarbaoui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= cub3d
 CC		:= cc
-CFLAGS	:= -Iinclude -O2 -Wall -Wextra -Werror
+CFLAGS	:= -Iinclude -O2
 HEADERS	:= include/cub3d.h
 ifeq ($(shell uname), Linux)
 	LIBFT	:= libs/linux/libft.a
@@ -21,7 +21,7 @@ ifeq ($(shell uname), Linux)
 else
 	LIBFT 	:= libs/osx/libft.a
 	MLX		:= libs/osx/libmlx.a
-	LIBS	:= 
+	LIBS	:= -lglfw -L/Volumes/L/.brew/opt/glfw/lib/
 endif
 SRCS := src/main.c \
 		src/gnl/get_next_line.c \
