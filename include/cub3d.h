@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:34:22 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/03/29 12:16:42 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/04/20 00:46:00 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #include "libft.h"
 #include "get_next_line.h"
 
+#define ERROR 0
+#define SUCCESS 1
 #define WIDTH 1080
 #define HEIGHT 720
 
