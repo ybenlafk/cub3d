@@ -6,13 +6,13 @@
 #    By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 21:01:46 by aarbaoui          #+#    #+#              #
-#    Updated: 2023/04/20 00:33:30 by aarbaoui         ###   ########.fr        #
+#    Updated: 2023/04/20 02:21:44 by aarbaoui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= cub3d
 CC		:= cc
-CFLAGS	:= -Iinclude -O2
+CFLAGS	:= -Iinclude -O2 -Wall -Wextra -Werror -g
 HEADERS	:= include/cub3d.h
 ifeq ($(shell uname), Linux)
 	LIBFT	:= libs/linux/libft.a
@@ -28,6 +28,7 @@ SRCS := src/main.c \
 		src/gnl/get_next_line_utils.c \
 		src/utils/ft_realloc.c \
 		src/parsing/parse.c \
+		src/utils/parse_utils.c \
 
 OBJS := $(SRCS:.c=.o)
 
