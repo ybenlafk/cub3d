@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:34:22 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/04/22 08:43:08 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:05:08 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,15 @@ typedef struct s_data
 	void	*mlx;
 	t_world	*world;
 }			t_data;
+
+//variables struct
+typedef struct car
+{
+	int		i;
+	int		j;
+	int		l;
+	char	*s;
+}			t_var;
 
 // parse.c
 void		init_parse(t_data *data, char *map_fi);

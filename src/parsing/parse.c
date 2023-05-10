@@ -3,14 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:57:36 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/04/20 03:23:47 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:06:12 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	is_valid(t_var	*p, char **map)
+{
+	if (map[p->i][p->j + 1] == '\n' || map[p->i][p->j + 1] == ' '
+		|| map[p->i][p->j + 1] == 0)
+		return (1);
+	else if (map[p->i][p->j - 1] == '\n' || map[p->i][p->j - 1] == ' '
+		|| map[p->i][p->j - 1] == 0)
+		return (1);
+	else if (map[p->i + 1][p->j] == '\n' || map[p->i + 1][p->j] == ' '
+		|| map[p->i + 1][p->j] == 0)
+		return (1);
+	else if (map[p->i - 1][p->j] == '\n' || map[p->i - 1][p->j] == ' '
+		|| map[p->i - 1][p->j] == 0)
+		return (1);
+	return (0);
+}
+
+int	is_surrounded(char **map)
+{
+	t_var p;
+
+	p.i = 0;
+	while (map[p.i])
+	{
+		p.j = 0;
+		while (map[p.i][p.j] && map[p.i][p.j] != '\n')
+		{
+			if (map[p.i][p.j] != '1' && map[p.i][p.j] != ' ' && map[p.i][p.j] != '\t')
+				if (is_valid(&p, map))
+					return (1);
+			p.j++;
+		}
+		p.i++;
+	}
+	return (0);
+}
 
 void	parse_params(t_data *data, char *line)
 {
@@ -51,12 +88,16 @@ void	init_parse(t_data *data, char *map_fi)
 		{
 			data->world->map[i] = ft_strdup(line);
 			i++;
-			data->world->map = ft_realloc(data->world->map, (i + 1)
-					* sizeof(char *));
+			data->world->map = ft_realloc(data->world->map, (i + 1) * sizeof(char *));
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
 	data->world->map[i] = NULL;
+	if (is_surrounded(data->world->map))
+	{
+		printf("Error\n");
+		exit(0);
+	}
 	close(fd);
 }

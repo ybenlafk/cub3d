@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+         #
+#    By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 21:01:46 by aarbaoui          #+#    #+#              #
-#    Updated: 2023/04/20 02:21:44 by aarbaoui         ###   ########.fr        #
+#    Updated: 2023/05/10 16:05:55 by ybenlafk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,9 @@ ifeq ($(shell uname), Linux)
 	LIBS	:= -ldl -lglfw -pthread -lm
 else
 	LIBFT 	:= libs/osx/libft.a
-	MLX		:= libs/osx/libmlx.a
-	LIBS	:= -lglfw -L/Volumes/L/.brew/opt/glfw/lib/
+	MLX		:= libs/libmlx42.a
+	# LIBS	:= -lglfw -L/Volumes/L/.brew/opt/glfw/lib/
+	LIBS	:= -lglfw -L/Users/ybenlafk/.brew/opt/glfw/lib/
 endif
 SRCS := src/main.c \
 		src/gnl/get_next_line.c \
