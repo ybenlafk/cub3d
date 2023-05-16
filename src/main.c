@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:38:38 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/16 15:10:16 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:14:15 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ static void ft_hook(void* param)
         new_px += data->p.pdx;
         new_py += data->p.pdy;
     }
-    if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+    if (mlx_is_key_down(data->mlx, MLX_KEY_D))
     {
         new_px -= data->p.pdy;
         new_py += data->p.pdx;
     }
-    if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+    if (mlx_is_key_down(data->mlx, MLX_KEY_A))
     {
         new_px += data->p.pdy;
         new_py -= data->p.pdx;
