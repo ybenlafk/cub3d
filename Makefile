@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+         #
+#    By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 21:01:46 by aarbaoui          #+#    #+#              #
-#    Updated: 2023/05/15 22:07:59 by ybenlafk         ###   ########.fr        #
+#    Updated: 2023/05/16 14:26:55 by aarbaoui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,8 @@ ifeq ($(shell uname), Linux)
 else
 	LIBFT 	:= libs/osx/libft.a
 	MLX		:= libs/libmlx42.a
-	# LIBS	:= -lglfw -L/Volumes/L/.brew/opt/glfw/lib/
-	LIBS	:= -lglfw -L/Users/ybenlafk/.brew/opt/glfw/lib/
+	LIBS	:= -lglfw -L/Volumes/L/.brew/opt/glfw/lib/
+	# LIBS	:= -lglfw -L/Users/ybenlafk/.brew/opt/glfw/lib/
 endif
 SRCS := tools/gnl/get_next_line.c \
 		tools/gnl/get_next_line_utils.c \
