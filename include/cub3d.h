@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:34:22 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/16 13:09:18 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:57:34 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@
 # define PI 3.14159265358979323846
 # define ERROR 0
 # define SUCCESS 1
-# define WIDTH 1280
-# define HEIGHT 720
-
+# define WIDTH 1440
+# define HEIGHT 1080
+#define FOV 3.14159f  // Field of view in radians
+#define NUM_RAYS 120  // Number of rays to cast
+#define VIEW_ANGLE 1.0472f // view angle
+#define WALL_SCALE 32
 typedef struct s_world
 {
 	char	*no;

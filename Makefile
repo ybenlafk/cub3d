@@ -6,13 +6,13 @@
 #    By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 21:01:46 by aarbaoui          #+#    #+#              #
-#    Updated: 2023/05/16 14:26:55 by aarbaoui         ###   ########.fr        #
+#    Updated: 2023/05/16 15:32:54 by aarbaoui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= cub3d
 CC		:= cc
-CFLAGS	:= -Iinclude -O2 #-Wall -Wextra -Werror -g
+CFLAGS	:= -Iinclude -O2 -g #-Wall -Wextra -Werror -g
 HEADERS	:= include/cub3d.h
 ifeq ($(shell uname), Linux)
 	LIBFT	:= libs/linux/libft.a
