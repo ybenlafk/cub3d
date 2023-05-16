@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:34:22 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/16 15:57:34 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:02:25 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@
 # define SUCCESS 1
 # define WIDTH 1440
 # define HEIGHT 1080
-#define FOV 3.14159f  // Field of view in radians
-#define NUM_RAYS 120  // Number of rays to cast
-#define VIEW_ANGLE 1.0472f // view angle
-#define WALL_SCALE 32
+#define FOV 1.0472    // Field of View (60 degrees in radians)
+#define NUM_RAYS 2000 // Number of rays to cast
+#define VIEW_ANGLE 1.0472 // Viewing angle (60 degrees in radians)
+#define WALL_SCALE 100  // Wall scale factor
+
 typedef struct s_world
 {
 	char	*no;
@@ -47,6 +48,7 @@ typedef struct var
 	mlx_image_t	*floor;
 	mlx_image_t	*line;
 	mlx_image_t	*img;
+	mlx_image_t *wall_image;
 	float		px;
 	float		py;
 	float		pdx;

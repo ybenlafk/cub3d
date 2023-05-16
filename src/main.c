@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:38:38 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/16 16:05:48 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:03:21 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,10 @@ void raycast(t_data *data, float player_x, float player_y, float player_angle)
     const float ray_angle_step = FOV / NUM_RAYS;
     const float start_angle = player_angle - FOV / 2 + (FOV - VIEW_ANGLE) / 2;
     float ray_angle = start_angle;
-
+    int wall_heights[NUM_RAYS];
+    // Find the maximum wall height to determine the scaling factor
+    int max_wall_height = 0;
+    
     for (int i = 0; i < NUM_RAYS; ++i)
     {
         float ray_x = cos(ray_angle);
@@ -186,14 +189,48 @@ void raycast(t_data *data, float player_x, float player_y, float player_angle)
         float line_end_x = player_x + ray_x * perp_dist;
         float line_end_y = player_y + ray_y * perp_dist;
 
-        mlx_draw_line(data->p.line, player_x, player_y, line_end_x, line_end_y, 0xFF0000FF);
+      int wall_height = HEIGHT / (perp_dist * cos(ray_angle - player_angle)) * WALL_SCALE;
+
+        // Store the wall height in the array
+        wall_heights[i] = wall_height;
+
+        // Update the maximum wall height
+        if (wall_height > max_wall_height)
+            max_wall_height = wall_height;
+
         ray_angle += ray_angle_step;
 
         // Break the loop if we have covered the desired angle
         if (ray_angle >= start_angle + VIEW_ANGLE)
             break;
     }
-	
+
+    // Clear the previous wall image
+    mlx_delete_image(data->mlx, data->p.wall_image);
+    data->p.wall_image = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+
+    float scale_factor_width = (float)WIDTH / (float)NUM_RAYS;
+    float scale_factor_height = (float)HEIGHT / (float)max_wall_height;
+
+    // Draw the walls
+    for (int i = 0; i < NUM_RAYS; ++i)
+    {
+        int wall_height = wall_heights[i];
+        int scaled_wall_height = wall_height * scale_factor_height;
+
+        int wall_top = HEIGHT / 2 - scaled_wall_height / 2;
+        int wall_bottom = wall_top + scaled_wall_height;
+
+        // Calculate the start and end positions of the wall segment
+        int wall_start_x = i * scale_factor_width;
+        int wall_end_x = (i + 1) * scale_factor_width;
+
+        // Draw a vertical line for the wall segment
+        mlx_draw_line(data->p.wall_image, wall_start_x, wall_top, wall_end_x, wall_bottom, 0xFFF000FF);
+    }
+
+    // Display the wall image
+    mlx_image_to_window(data->mlx, data->p.wall_image, 0, 0);
 }
 
 
@@ -264,7 +301,7 @@ static void ft_hook(void* param)
     // Draw a line from the middle of the player to 16 pixels in front of it
     mlx_delete_image(data->mlx, data->p.line);
     data->p.line = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-    // mlx_draw_line(data->p.line, data->p.px + 8, data->p.py + 8, data->p.px + 8 + data->p.pdx * 8, data->p.py + 8 + data->p.pdy * 8, 0xFF0000FF);
+    mlx_draw_line(data->p.line, data->p.px + 8, data->p.py + 8, data->p.px + 8 + data->p.pdx * 8, data->p.py + 8 + data->p.pdy * 8, 0xFF0000FF);
 	 raycast(data, data->p.px, data->p.py, data->p.pa);
     mlx_image_to_window(data->mlx, data->p.line, 0, 0);
 }
@@ -335,6 +372,8 @@ int	main(int ac, char **av)
 	p.img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	p.p = mlx_new_image(data->mlx, 32, 32);
 	p.line = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	p.wall_image = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+
 	draw_map(data, &p);
 	mlx_image_to_window(data->mlx, p.img, 0, 0);
 	mlx_image_to_window(data->mlx, p.line, 0, 0);
