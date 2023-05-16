@@ -6,13 +6,13 @@
 #    By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 21:01:46 by aarbaoui          #+#    #+#              #
-#    Updated: 2023/05/10 16:05:55 by ybenlafk         ###   ########.fr        #
+#    Updated: 2023/05/15 22:07:59 by ybenlafk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= cub3d
 CC		:= cc
-CFLAGS	:= -Iinclude -O2 -Wall -Wextra -Werror -g
+CFLAGS	:= -Iinclude -O2 #-Wall -Wextra -Werror -g
 HEADERS	:= include/cub3d.h
 ifeq ($(shell uname), Linux)
 	LIBFT	:= libs/linux/libft.a
@@ -24,12 +24,13 @@ else
 	# LIBS	:= -lglfw -L/Volumes/L/.brew/opt/glfw/lib/
 	LIBS	:= -lglfw -L/Users/ybenlafk/.brew/opt/glfw/lib/
 endif
-SRCS := src/main.c \
-		src/gnl/get_next_line.c \
-		src/gnl/get_next_line_utils.c \
-		src/utils/ft_realloc.c \
-		src/parsing/parse.c \
-		src/utils/parse_utils.c \
+SRCS := tools/gnl/get_next_line.c \
+		tools/gnl/get_next_line_utils.c \
+		tools/utils.c \
+		tools/ft_realloc.c \
+		tools/parse_utils.c \
+		src/parsing.c \
+		src/main.c
 
 OBJS := $(SRCS:.c=.o)
 

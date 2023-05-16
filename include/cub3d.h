@@ -6,7 +6,7 @@
 /*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:34:22 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/10 16:05:08 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/16 13:09:18 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,25 +37,41 @@ typedef struct s_world
 	char	*ceil_c;
 	char	**map;
 }			t_world;
+//variables struct
+typedef struct var
+{
+	mlx_image_t	*p;
+	mlx_image_t	*floor;
+	mlx_image_t	*line;
+	mlx_image_t	*img;
+	float		px;
+	float		py;
+	float		pdx;
+	float		pdy;
+	float		pa;
+	int		i;
+	int		j;
+	int		l;
+	int		x;
+	int		y;
+	char	*s;
+	char	**str;
+	void	*mlx;
+	void	*win;
+}			t_var;
 
 typedef struct s_data
 {
 	void	*mlx;
+	t_var	p;
 	t_world	*world;
 }			t_data;
 
-//variables struct
-typedef struct car
-{
-	int		i;
-	int		j;
-	int		l;
-	char	*s;
-}			t_var;
 
 // parse.c
 void		init_parse(t_data *data, char *map_fi);
 // utils
 int			is_map(char *line);
+void    	put_str(char *s, int fd);
 
 #endif

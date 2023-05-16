@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:57:36 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/10 16:06:12 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:39:04 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 int	is_valid(t_var	*p, char **map)
 {
@@ -19,6 +19,10 @@ int	is_valid(t_var	*p, char **map)
 		return (1);
 	else if (map[p->i][p->j - 1] == '\n' || map[p->i][p->j - 1] == ' '
 		|| map[p->i][p->j - 1] == 0)
+		return (1);
+	else if (!map[p->i + 1])
+		return (1);
+	else if (!map[p->i - 1] || p->i - 1 < 0)
 		return (1);
 	else if (map[p->i + 1][p->j] == '\n' || map[p->i + 1][p->j] == ' '
 		|| map[p->i + 1][p->j] == 0)
@@ -97,7 +101,7 @@ void	init_parse(t_data *data, char *map_fi)
 	if (is_surrounded(data->world->map))
 	{
 		printf("Error\n");
-		exit(0);
+		// exit(0);
 	}
 	close(fd);
 }
