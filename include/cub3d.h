@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:34:22 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/16 18:02:25 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:32:33 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 # define WIDTH 1440
 # define HEIGHT 1080
 #define FOV 1.0472    // Field of View (60 degrees in radians)
-#define NUM_RAYS 2000 // Number of rays to cast
+#define NUM_RAYS 1440 // Number of rays to cast
 #define VIEW_ANGLE 1.0472 // Viewing angle (60 degrees in radians)
-#define WALL_SCALE 100  // Wall scale factor
+#define WALL_SCALE 30  // Wall scale factor
 
 typedef struct s_world
 {
