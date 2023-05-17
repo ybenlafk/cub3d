@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:38:38 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/17 19:43:12 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/17 20:00:21 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,32 +207,34 @@ static void ft_hook(void* param)
 {
     (void)param;
     t_data *data = (t_data *)param;
-    
+    float speed = 2;
     // Store the current position to check for collisions
     float new_px = data->p.px;
     float new_py = data->p.py;
 	int cell_x;
 	int cell_y;
+    if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT))
+        speed = 1;
     // Update the position based on keyboard input
     if (mlx_is_key_down(data->mlx, MLX_KEY_S))
     {
-        new_px -= data->p.pdx;
-        new_py -= data->p.pdy;
+        new_px -= data->p.pdx / speed;
+        new_py -= data->p.pdy / speed;
     }
     if (mlx_is_key_down(data->mlx, MLX_KEY_W))
     {
-        new_px += data->p.pdx;
-        new_py += data->p.pdy;
+        new_px += data->p.pdx / speed;
+        new_py += data->p.pdy / speed;
     }
     if (mlx_is_key_down(data->mlx, MLX_KEY_D))
     {
-        new_px -= data->p.pdy;
-        new_py += data->p.pdx;
+        new_px -= data->p.pdy / speed;
+        new_py += data->p.pdx / speed;
     }
     if (mlx_is_key_down(data->mlx, MLX_KEY_A))
     {
-        new_px += data->p.pdy;
-        new_py -= data->p.pdx;
+        new_px += data->p.pdy / speed;
+        new_py -= data->p.pdx / speed;
     }
 
     // Check for collisions with walls
@@ -252,13 +254,13 @@ static void ft_hook(void* param)
     // Update player direction
     if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
     {
-        data->p.pa -= 0.1;
+        data->p.pa -= 0.05;
         data->p.pdx = cos(data->p.pa) * 5;
         data->p.pdy = sin(data->p.pa) * 5;
     }
     if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
     {
-        data->p.pa += 0.1;
+        data->p.pa += 0.05;
         data->p.pdx = cos(data->p.pa) * 5;
         data->p.pdy = sin(data->p.pa) * 5;
     }
