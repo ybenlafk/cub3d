@@ -3,303 +3,147 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:38:38 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/17 20:00:21 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:48:08 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void mlx_draw_line(mlx_image_t *image, int x1, int y1, int x2, int y2, int color)
+void mlx_draw_line(mlx_image_t *image, t_param t, int color)
 {
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	e2;
+	t_var p;
 
-	dx = abs(x2 - x1);
-	dy = abs(y2 - y1);
-	sx = x1 < x2 ? 1 : -1;
-	sy = y1 < y2 ? 1 : -1;
-	err = (dx > dy ? dx : -dy) / 2;
-	if (x1 == x2 && y1 == y2)
-		mlx_put_pixel(image, x1, y1, color);
-	// if any is negative, dont draw
-	if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0)
+	ft_init(&p, t);
+	if (t.x0 == t.x1 && t.y0 == t.y1)
+		mlx_put_pixel(image, t.x0, t.y0, color);
+	if (t.x0 < 0 || t.y0 < 0 || t.x1 < 0 || t.y1 < 0)
 		return ;
 	while (1)
 	{
-		mlx_put_pixel(image, x1, y1, color);
-		if (x1 == x2 && y1 == y2)
+		mlx_put_pixel(image, t.x0, t.y0, color);
+		if (t.x0 == t.x1 && t.y0 == t.y1)
 			break ;
-		e2 = err;
-		if (e2 > -dx)
+		p.e2 = p.err;
+		if (p.e2 > -p.dx)
 		{
-			err -= dy;
-			x1 += sx;
+			p.err -= p.dy;
+			t.x0 += p.sx;
 		}
-		if (e2 < dy)
+		if (p.e2 < p.dy)
 		{
-			err += dx;
-			y1 += sy;
+			p.err += p.dx;
+			t.y0 += p.sy;
 		}
 	}
 }
 
-// void raycast(t_data *data, float player_x, float player_y, float player_angle)
-// {
-//     const float ray_angle_step = FOV / NUM_RAYS;
-//     const float start_angle = player_angle - FOV / 2 + (FOV - VIEW_ANGLE) / 2;
-//     float ray_angle = start_angle;
-
-//     // Create a new image for drawing walls
-// 	mlx_delete_image(data->mlx, wall_image);
-//     mlx_image_t *wall_image = mlx_new_image(data->mlx, 1, HEIGHT);
-	
-//     for (int i = 0; i < NUM_RAYS; ++i)
-//     {
-//         float ray_x = cos(ray_angle);
-//         float ray_y = sin(ray_angle);
-
-//         float delta_dist_x = fabs(1 / ray_x);
-//         float delta_dist_y = fabs(1 / ray_y);
-
-//         float side_dist_x, side_dist_y;
-//         float perp_dist;
-
-//         int map_x = (int)player_x;
-//         int map_y = (int)player_y;
-
-//         float step_x = (ray_x < 0) ? -1 : 1;
-//         float step_y = (ray_y < 0) ? -1 : 1;
-
-//         if (ray_x < 0)
-//             side_dist_x = (player_x - map_x) * delta_dist_x;
-//         else
-//             side_dist_x = (map_x + 1.0 - player_x) * delta_dist_x;
-
-//         if (ray_y < 0)
-//             side_dist_y = (player_y - map_y) * delta_dist_y;
-//         else
-//             side_dist_y = (map_y + 1.0 - player_y) * delta_dist_y;
-
-//         int hit = 0;
-//         while (!hit)
-//         {
-//             if (side_dist_x < side_dist_y)
-//             {
-//                 side_dist_x += delta_dist_x;
-//                 map_x += step_x;
-//                 hit = data->world->map[map_y / 32][map_x / 32] == '1';
-//                 perp_dist = (map_x - player_x + (1 - step_x) / 2) / ray_x;
-//             }
-//             else
-//             {
-//                 side_dist_y += delta_dist_y;
-//                 map_y += step_y;
-//                 hit = data->world->map[map_y / 32][map_x / 32] == '1';
-//                 perp_dist = (map_y - player_y + (1 - step_y) / 2) / ray_y;
-//             }
-//         }
-
-//         // Calculate the endpoint of the line
-//         float line_end_x = player_x + ray_x * perp_dist;
-//         float line_end_y = player_y + ray_y * perp_dist;
-
-//         mlx_draw_line(data->p.line, player_x, player_y, line_end_x, line_end_y, 0xFF0000FF);
-
-//         // Draw the wall on the wall image
-//         int wall_height = HEIGHT / (perp_dist * cos(ray_angle - player_angle)) * WALL_SCALE;
-//         int wall_top = HEIGHT / 2 - wall_height / 2;
-//         mlx_draw_line(wall_image, 0, wall_top, 0, wall_top + wall_height, 0xFF0000FF);
-
-//         ray_angle += ray_angle_step;
-
-//         // Break the loop if we have covered the desired angle
-//         if (ray_angle >= start_angle + VIEW_ANGLE)
-//             break;
-//     }
-
-//     // Display the wall image
-//     mlx_image_to_window(data->mlx, wall_image, WIDTH / 2, HEIGHT /2 );
-// }
-
-
-
 void raycast(t_data *data, float player_x, float player_y, float player_angle)
 {
-    const float ray_angle_step = FOV / NUM_RAYS;
-    const float start_angle = player_angle - FOV / 2 + (FOV - VIEW_ANGLE) / 2;
-    float ray_angle = start_angle;
-    int walls[NUM_RAYS][2];
-    mlx_image_t *wall_image = mlx_new_image(data->mlx, 1, HEIGHT);
-    for (int i = 0; i < NUM_RAYS; ++i)
+    t_param t;
+    t_var   p;
+
+    p.ray_angle_step = FOV / NUM_RAYS;
+    p.start_angle = player_angle - FOV / 2 + (FOV - VIEW_ANGLE) / 2;
+    p.ray_angle = p.start_angle;
+    p.i = 0;
+    while (p.i < NUM_RAYS)
     {
-        float ray_x = cos(ray_angle);
-        float ray_y = sin(ray_angle);
+        p.ray_x = cos(p.ray_angle);
+        p.ray_y = sin(p.ray_angle);
+        p.delta_dist_x = fabs(1 / p.ray_x);
+        p.delta_dist_y = fabs(1 / p.ray_y);
+        p.map_x = (int)player_x;
+        p.map_y = (int)player_y;
+        p.step_x = get_step(p.ray_x);
+        p.step_y = get_step(p.ray_y);
 
-        float delta_dist_x = fabs(1 / ray_x);
-        float delta_dist_y = fabs(1 / ray_y);
-
-        float side_dist_x, side_dist_y;
-        float perp_dist;
-
-        int map_x = (int)player_x;
-        int map_y = (int)player_y;
-
-        float step_x = (ray_x < 0) ? -1 : 1;
-        float step_y = (ray_y < 0) ? -1 : 1;
-
-        if (ray_x < 0)
-            side_dist_x = (player_x - map_x) * delta_dist_x;
+        if (p.ray_x < 0)
+            p.side_dist_x = (player_x - p.map_x) * p.delta_dist_x;
         else
-            side_dist_x = (map_x + 1.0 - player_x) * delta_dist_x;
+            p.side_dist_x = (p.map_x + 1.0 - player_x) * p.delta_dist_x;
 
-        if (ray_y < 0)
-            side_dist_y = (player_y - map_y) * delta_dist_y;
+        if (p.ray_y < 0)
+            p.side_dist_y = (player_y - p.map_y) * p.delta_dist_y;
         else
-            side_dist_y = (map_y + 1.0 - player_y) * delta_dist_y;
+            p.side_dist_y = (p.map_y + 1.0 - player_y) * p.delta_dist_y;
 
-        int hit = 0;
-        while (!hit)
+        p.hit = 0;
+        while (!p.hit)
         {
-            if (side_dist_x < side_dist_y)
+            if (p.side_dist_x < p.side_dist_y)
             {
-                side_dist_x += delta_dist_x;
-                map_x += step_x;
-                hit = data->world->map[map_y / 32][map_x / 32] == '1';
-                perp_dist = (map_x - player_x + (1 - step_x) / 2) / ray_x;
+                p.side_dist_x += p.delta_dist_x;
+                p.map_x += p.step_x;
+                p.hit = data->world->map[p.map_y / 32][p.map_x / 32] == '1';
+                p.perp_dist = (p.map_x - player_x + (1 - p.step_x) / 2) / p.ray_x;
             }
             else
             {
-                side_dist_y += delta_dist_y;
-                map_y += step_y;
-                hit = data->world->map[map_y / 32][map_x / 32] == '1';
-                perp_dist = (map_y - player_y + (1 - step_y) / 2) / ray_y;
+                p.side_dist_y += p.delta_dist_y;
+                p.map_y += p.step_y;
+                p.hit = data->world->map[p.map_y / 32][p.map_x / 32] == '1';
+                p.perp_dist = (p.map_y - player_y + (1 - p.step_y) / 2) / p.ray_y;
             }
         }
 
-        // Calculate the endpoint of the line
-        float line_end_x = player_x + ray_x * perp_dist;
-        float line_end_y = player_y + ray_y * perp_dist;
+        p.line_end_x = player_x + p.ray_x * p.perp_dist;
+        p.line_end_y = player_y + p.ray_y * p.perp_dist;
 
-        mlx_draw_line(data->p.line, player_x, player_y, line_end_x, line_end_y, 0xFF0000FF);
-        int wall_height = HEIGHT / (perp_dist * cos(ray_angle - player_angle)) * WALL_SCALE;
+        int wall_height = HEIGHT / (p.perp_dist * cos(p.ray_angle - player_angle)) * WALL_SCALE;
         int wall_top = HEIGHT / 2 - wall_height / 2;
-        int wall_bottom = wall_top + wall_height;
+        wall_top = wall_top < 0 ? 0 : wall_top;
+        int wall_bottom = HEIGHT / 2 + wall_height / 2;
+        wall_bottom = wall_bottom > HEIGHT ? HEIGHT : wall_bottom;
 
-        // Draw the wall on the wall image
-        mlx_draw_line(data->p.line, i, wall_top, i, wall_bottom, 0xFFFFFFFF);
+        t.x0 = p.i;
+        t.y0 = wall_top;
+        t.x1 = p.i;
+        t.y1 = wall_bottom;
+        mlx_draw_line(data->p.line, t, 0xFFFFFFFF);
         
-        ray_angle += ray_angle_step;
-        // Break the loop if we have covered the desired angle
-        if (ray_angle >= start_angle + VIEW_ANGLE)
+        p.ray_angle += p.ray_angle_step;
+        if (p.ray_angle >= p.start_angle + VIEW_ANGLE)
             break;
+        p.i++;
     }
 }
 
 
 static void ft_hook(void* param)
 {
-    (void)param;
-    t_data *data = (t_data *)param;
-    float speed = 2;
-    // Store the current position to check for collisions
-    float new_px = data->p.px;
-    float new_py = data->p.py;
-	int cell_x;
-	int cell_y;
-    if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT))
-        speed = 1;
-    // Update the position based on keyboard input
-    if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-    {
-        new_px -= data->p.pdx / speed;
-        new_py -= data->p.pdy / speed;
-    }
-    if (mlx_is_key_down(data->mlx, MLX_KEY_W))
-    {
-        new_px += data->p.pdx / speed;
-        new_py += data->p.pdy / speed;
-    }
-    if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-    {
-        new_px -= data->p.pdy / speed;
-        new_py += data->p.pdx / speed;
-    }
-    if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-    {
-        new_px += data->p.pdy / speed;
-        new_py -= data->p.pdx / speed;
-    }
+    t_data *data;
+    t_var p;
 
-    // Check for collisions with walls
-    cell_x = (int)new_px  / 32;
-    cell_y = (int)new_py / 32;
-
-    if (new_px >= 0 && new_px < WIDTH && new_py >= 0 && new_py < HEIGHT)
+    data = (t_data *)param;
+    p.speed = 2;
+    p.new_px = data->p.px;
+    p.new_py = data->p.py;
+    moves(data, &p);
+    p.cell_x = (int)p.new_px  / 32;
+    p.cell_y = (int)p.new_py / 32;
+    if (p.new_px >= 0 && p.new_px < WIDTH && p.new_py >= 0 && p.new_py < HEIGHT)
     {
-        if (data->world->map[cell_y][cell_x] != '1')
+        if (data->world->map[p.cell_y][p.cell_x] != '1')
         {
-            // Update the position if there is no collision
-            data->p.px = new_px;
-            data->p.py = new_py;
+            data->p.px = p.new_px;
+            data->p.py = p.new_py;
         }
     }
-    
-    // Update player direction
-    if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-    {
-        data->p.pa -= 0.05;
-        data->p.pdx = cos(data->p.pa) * 5;
-        data->p.pdy = sin(data->p.pa) * 5;
-    }
-    if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-    {
-        data->p.pa += 0.05;
-        data->p.pdx = cos(data->p.pa) * 5;
-        data->p.pdy = sin(data->p.pa) * 5;
-    }
-
-    // Update the position of the player instance
-    data->p.p->instances[0].x = data->p.px;
-    data->p.p->instances[0].y = data->p.py;
-
-    // Draw a line from the middle of the player to 16 pixels in front of it
+    angels(data);
     mlx_delete_image(data->mlx, data->p.line);
     data->p.line = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-    mlx_draw_line(data->p.line, data->p.px , data->p.py, data->p.px + data->p.pdx * 16, data->p.py + data->p.pdy * 16, 0xFFFFFFF);
-	 raycast(data, data->p.px, data->p.py, data->p.pa);
+	raycast(data, data->p.px, data->p.py, data->p.pa);
     mlx_image_to_window(data->mlx, data->p.line, 0, 0);
-}
-
-
-void	draw_square(mlx_image_t *image, int x, int y, int size, int color)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			mlx_put_pixel(image, x + j, y + i, color);
-			j++;
-		}
-		i++;
-	}
 }
 
 void	draw_map(t_data *data, t_var *var)
 {
 	t_var p;
-	
+    t_param t;
+
 	p.i = 0;
 	while (data->world->map[p.i])
 	{
@@ -307,18 +151,11 @@ void	draw_map(t_data *data, t_var *var)
 		while (data->world->map[p.i][p.j])
 		{
 			if (data->world->map[p.i][p.j] == '1')
-				draw_square(var->img, p.j * 32, p.i * 32, 30, 0xFFFFFFFF);
-			if (data->world->map[p.i][p.j] == 'N' || data->world->map[p.i][p.j] == 'S'
-				|| data->world->map[p.i][p.j] == 'E'
-				|| data->world->map[p.i][p.j] == 'W')
-			{
-				draw_square(var->p, 0, 0, 16, 0xFF0000FF);
-				var->px = p.j * 32;
-				var->py = p.i * 32;
-				var->pdx = cos(var->pa) * 5;
-				var->pdy = sin(var->pa) * 5;
-				mlx_draw_line(var->line, var->px + 8, var->py + 8, var->px + 8 + var->pdx * 8, var->py + 8 + var->pdy * 8, 0xFFFFFFF);
-			}
+            {
+                square_init(p, &t, 30);
+				draw_square(var->img, t, 0xFFFFFFFF);
+            }
+			draw_player(data, p, &t, var);
 			p.j++;
 		}
 		p.i++;
