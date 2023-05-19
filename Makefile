@@ -10,11 +10,13 @@ SRCS := srcs/main.c \
 		srcs/parsing/parse.c \
 		srcs/engine/raycast.c \
 		srcs/engine/player.c \
+		srcs/engine/skybox.c \
 		srcs/utils/is_map.c \
 		srcs/utils/ft_realloc.c \
 		srcs/utils/gnl/get_next_line_utils.c \
 		srcs/utils/gnl/get_next_line.c \
 		srcs/utils/get_step.c \
+		srcs/utils/get_rgba.c \
 		srcs/engine/minimap.c \
 		srcs/utils/mlx_draw_line.c \
 

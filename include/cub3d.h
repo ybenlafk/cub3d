@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:34:22 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/19 19:06:58 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:27:40 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define NUM_RAYS 1440     // Number of rays to cast
 # define VIEW_ANGLE 1.0472 // Viewing angle (60 degrees in radians)
 # define WALL_SCALE 30     // Wall scale factor
+# define MAX_RENDER_DISTANCE 1000
 
 typedef struct s_line
 {
@@ -111,6 +112,7 @@ typedef struct s_world
 	char		*ceil_c;
 	mlx_image_t	*walls;
 	mlx_image_t	*minim;
+	mlx_image_t	*skybox;
 	char		**map;
 }				t_world;
 
@@ -127,10 +129,13 @@ void			raycast(t_data *data, float player_x, float player_y,
 					float player_angle);
 void			init_player(t_data *data);
 void			mini_map(t_data *data);
+void			get_skybox(t_data *data);
 // parsing
 void			init_parse(t_data *data, char *map_fi);
 // utils
 int				is_map(char *line);
 int				get_step(float x);
 void			mlx_draw_line(mlx_image_t *image, t_line t, int color);
+int				get_rgba(int r, int g, int b, int a);
+
 #endif

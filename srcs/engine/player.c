@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 18:45:52 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/19 18:46:27 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:16:55 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	init_player(t_data *data)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (data->world.map[i])
@@ -28,7 +28,14 @@ void	init_player(t_data *data)
 			{
 				data->pl.px = (j * 32);
 				data->pl.py = (i * 32);
-				data->pl.pa = 0.0;
+				if (data->world.map[i][j] == 'N')
+					data->pl.pa = PI / 2;
+				if (data->world.map[i][j] == 'S')
+					data->pl.pa = (3 * PI) / 2;
+				if (data->world.map[i][j] == 'E')
+					data->pl.pa = 0 / 2 * PI;
+				if (data->world.map[i][j] == 'W')
+					data->pl.pa = PI;
 				data->pl.pdx = cos(data->pl.pa) * 5;
 				data->pl.pdy = sin(data->pl.pa) * 5;
 				return ;

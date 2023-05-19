@@ -6,22 +6,21 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:24:39 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/19 17:30:22 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:13:31 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int is_empty(char c)
+int	is_empty(char c)
 {
 	if (c == '\n' || c == ' ' || c == 0)
 		return (1);
 	return (0);
 }
 
-int	is_valid(t_var	*p, char **map)
+int	is_valid(t_var *p, char **map)
 {
-
 	if (!map[p->i + 1] || p->j == 0)
 		return (1);
 	else if (!map[p->i - 1] || p->i == 0)
@@ -47,16 +46,16 @@ int	is_valid(t_var	*p, char **map)
 
 int	is_surrounded(char **map)
 {
-	t_var p;
+	t_var	p;
 
 	p.i = 0;
 	while (map[p.i])
 	{
-
 		p.j = 0;
 		while (map[p.i][p.j] && map[p.i][p.j] != '\n')
 		{
-			if (map[p.i][p.j] != '1' && map[p.i][p.j] != ' ' && map[p.i][p.j] != '\t')
+			if (map[p.i][p.j] != '1' && map[p.i][p.j] != ' '
+				&& map[p.i][p.j] != '\t')
 				if (is_valid(&p, map))
 					return (1);
 			p.j++;
@@ -107,7 +106,8 @@ void	init_parse(t_data *data, char *map_fi)
 		{
 			data->world.map[i] = ft_strdup(line);
 			i++;
-			data->world.map = ft_realloc(data->world.map, (i + 1) * sizeof(char *));
+			data->world.map = ft_realloc(data->world.map, (i + 1)
+					* sizeof(char *));
 		}
 		free(line);
 		line = get_next_line(fd);
