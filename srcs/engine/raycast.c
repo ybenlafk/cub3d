@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:59:07 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/19 20:47:37 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:54:48 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	raycast(t_data *data, float player_x, float player_y,
 		t.x1 = p.i;
 		t.y1 = wall_bottom;
 		distance_shade = (int)(255 - (p.perp_dist / MAX_RENDER_DISTANCE) * 255);
+		distance_shade = distance_shade <= 0 ? 0 : distance_shade; 
 		color = get_rgba(distance_shade, distance_shade, distance_shade,
 				255);
 		mlx_draw_line(data->world.walls, t, color);
