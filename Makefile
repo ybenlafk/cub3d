@@ -1,37 +1,23 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/03/28 21:01:46 by aarbaoui          #+#    #+#              #
-#    Updated: 2023/05/18 15:58:36 by ybenlafk         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME	:= cub3d
 CC		:= cc
-CFLAGS	:= -Iinclude -O2 -g #-Wall -Wextra -Werror -g
+CFLAGS	:= -Iinclude -Ofast -g -Wall -Wextra -Werror
 HEADERS	:= include/cub3d.h
-ifeq ($(shell uname), Linux)
-	LIBFT	:= libs/linux/libft.a
-	MLX		:= libs/linux/libmlx.a
-	LIBS	:= -ldl -lglfw -pthread -lm
-else
-	LIBFT 	:= libs/osx/libft.a
-	MLX		:= libs/libmlx42.a
-	# LIBS	:= -lglfw -L/Volumes/L/.brew/opt/glfw/lib/
-	LIBS	:= -lglfw -L/Users/ybenlafk/.brew/opt/glfw/lib/
-endif
-SRCS := tools/gnl/get_next_line.c \
-		tools/gnl/get_next_line_utils.c \
-		tools/utils.c \
-		tools/utils_1.c \
-		tools/ft_realloc.c \
-		tools/parse_utils.c \
-		src/parsing.c \
-		src/main.c
+LIBFT	:= libs/libft.a
+MLX		:= libs/libmlx.a
+LIBS	:= -lglfw -L/Volumes/L/.brew/opt/glfw/lib/
+
+SRCS := srcs/main.c \
+		srcs/parsing/parse.c \
+		srcs/engine/raycast.c \
+		srcs/engine/player.c \
+		srcs/utils/is_map.c \
+		srcs/utils/ft_realloc.c \
+		srcs/utils/gnl/get_next_line_utils.c \
+		srcs/utils/gnl/get_next_line.c \
+		srcs/utils/get_step.c \
+		srcs/engine/minimap.c \
+		srcs/utils/mlx_draw_line.c \
+
 
 OBJS := $(SRCS:.c=.o)
 
