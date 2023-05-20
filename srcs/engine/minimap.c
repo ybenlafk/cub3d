@@ -6,22 +6,28 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 18:49:29 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/19 20:15:20 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/20 12:46:15 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_square(mlx_image_t *image, int x, int y, int color)
+int	set_colorsize(int color_hex, int size)
+{
+	return (color_hex << 16 | size);
+}
+
+
+void	draw_square(mlx_image_t *image, int x, int y, int size, int color)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < 30)
+	while (i < size)
 	{
 		j = 0;
-		while (j < 30)
+		while (j < size)
 		{
 			mlx_put_pixel(image, x + i, y + j, color);
 			j++;
@@ -30,32 +36,27 @@ void	draw_square(mlx_image_t *image, int x, int y, int color)
 	}
 }
 
-void	mini_map(t_data *data)
+
+void	minimap(t_data *data)
 {
 	int	i;
 	int	j;
-	int	x;
-	int	y;
 
 	i = 0;
-	x = 0;
+	j = 0;
 	while (data->world.map[i])
 	{
 		j = 0;
-		y = 0;
 		while (data->world.map[i][j])
 		{
 			if (data->world.map[i][j] == '1')
-				draw_square(data->world.minim, y, x, 0xFFFFFFFF);
-			else if (data->world.map[i][j] == 'N'
-					|| data->world.map[i][j] == 'S' ||
-						data->world.map[i][j] == 'E'
-							|| data->world.map[i][j] == 'W')
-				draw_square(data->pl.img, y, x, 0x00FFFFFF);
+				draw_square(data->world.minim, j * 4, i * 4, 4, 0xFFF00FFF);
+			else if (data->world.map[i][j] == '0')
+				draw_square(data->world.minim, j * 4, i * 4, 4, 0xFF0000FF);
+			else if (data->world.map[i][j] == 'N')
+				draw_square(data->pl.img, j * 4, i * 4, 4, 0xFFFFFFFF);
 			j++;
-			y += 30;
 		}
 		i++;
-		x += 30;
 	}
 }

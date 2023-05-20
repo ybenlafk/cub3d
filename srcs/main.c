@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:16:54 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/19 20:28:27 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/20 12:52:42 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,10 @@ void	check_movment(t_data *data, float new_px, float new_py)
 
 	cell_x = (int)new_px / 32;
 	cell_y = (int)new_py / 32;
-	if (new_px >= 0 && new_px < WIDTH && new_py >= 0 && new_py < HEIGHT)
+	if (data->world.map[cell_y][cell_x] != '1')
 	{
-		if (data->world.map[cell_y][cell_x] != '1')
-		{
-			data->pl.px = new_px;
-			data->pl.py = new_py;
-		}
+		data->pl.px = new_px;
+		data->pl.py = new_py;
 	}
 }
 
@@ -82,8 +79,10 @@ void	ft_hook(void *param)
 	}
 	mlx_delete_image(data->mlx, data->world.walls);
 	data->world.walls = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	
 	raycast(data, data->pl.px, data->pl.py, data->pl.pa);
 	mlx_image_to_window(data->mlx, data->world.walls, 0, 0);
+
 }
 
 int	main(int ac, char **av)
@@ -97,14 +96,15 @@ int	main(int ac, char **av)
 	if (!data)
 		return (1);
 	init_parse(data, av[1]);
-	init_player(data);
-	data->world.walls = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-    data->world.skybox = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-    get_skybox(data);
+	data->world.skybox = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	// data->world.minim = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	// data->pl.img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	skybox(data);
+	// minimap(data);
+	init_player(data);
+	data->world.walls = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(data->mlx, data->world.skybox, 0, 0);
 	// mlx_image_to_window(data->mlx, data->world.minim, 0, 0);
-    mlx_image_to_window(data->mlx, data->world.skybox, 0, 0);
 	mlx_loop_hook(data->mlx, ft_hook, data);
 	mlx_loop(data->mlx);
 	return (0);

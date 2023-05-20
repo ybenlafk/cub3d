@@ -1,17 +1,18 @@
 NAME	:= cub3d
 CC		:= cc
-CFLAGS	:= -Iinclude -Ofast -g -Wall -Wextra -Werror
+CFLAGS	:= -Iinclude -g -Wall -Wextra -Werror
 HEADERS	:= include/cub3d.h
 LIBFT	:= libs/libft.a
 MLX		:= libs/libmlx.a
-LIBS	:= -lglfw -L/Volumes/L/.brew/opt/glfw/lib/
-LIBS	:= -lglfw -L/Users/ybenlafk/.brew/opt/glfw/lib/
+LIBS	:= -lglfw -L/Users/aarbaoui/goinfre/.brew/opt/glfw/lib
+# LIBS	:= -lglfw -L/Users/ybenlafk/.brew/opt/glfw/lib/
 SRCS := srcs/main.c \
 		srcs/parsing/parse.c \
 		srcs/engine/raycast.c \
 		srcs/engine/player.c \
 		srcs/engine/skybox.c \
 		srcs/utils/is_map.c \
+		srcs/utils/get_map_size.c \
 		srcs/utils/ft_realloc.c \
 		srcs/utils/gnl/get_next_line_utils.c \
 		srcs/utils/gnl/get_next_line.c \

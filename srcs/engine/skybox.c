@@ -6,13 +6,13 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:18:26 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/19 20:30:12 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/20 12:00:28 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	get_skybox(t_data *data)
+void	skybox(t_data *data)
 {
 	char **colors[2];
 	int i;

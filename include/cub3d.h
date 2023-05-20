@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:34:22 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/19 20:27:40 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/20 12:02:22 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ typedef struct s_world
 	char		*ea;
 	char		*floor_c;
 	char		*ceil_c;
+	int			width;
+	int			height;
 	mlx_image_t	*walls;
 	mlx_image_t	*minim;
 	mlx_image_t	*skybox;
@@ -128,8 +130,8 @@ typedef struct s_data
 void			raycast(t_data *data, float player_x, float player_y,
 					float player_angle);
 void			init_player(t_data *data);
-void			mini_map(t_data *data);
-void			get_skybox(t_data *data);
+void			minimap(t_data *data);
+void			skybox(t_data *data);
 // parsing
 void			init_parse(t_data *data, char *map_fi);
 // utils
@@ -137,5 +139,4 @@ int				is_map(char *line);
 int				get_step(float x);
 void			mlx_draw_line(mlx_image_t *image, t_line t, int color);
 int				get_rgba(int r, int g, int b, int a);
-
 #endif
