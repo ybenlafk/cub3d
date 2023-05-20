@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:34:22 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/20 12:02:22 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/20 12:54:00 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define VIEW_ANGLE 1.0472 // Viewing angle (60 degrees in radians)
 # define WALL_SCALE 30     // Wall scale factor
 # define MAX_RENDER_DISTANCE 1000
+# define MAXWIDTH 64
+# define MAXHEIGHT 64
 
 typedef struct s_line
 {
