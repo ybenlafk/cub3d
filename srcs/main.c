@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:16:54 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/20 12:52:42 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/21 21:44:48 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ void	ft_hook(void *param)
 	check_movment(data, p.new_px, p.new_py);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
-		data->pl.pa -= 0.05;
+		data->pl.pa -= 0.04;
 		data->pl.pdx = cos(data->pl.pa) * 5;
 		data->pl.pdy = sin(data->pl.pa) * 5;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	{
-		data->pl.pa += 0.05;
+		data->pl.pa += 0.04;
 		data->pl.pdx = cos(data->pl.pa) * 5;
 		data->pl.pdy = sin(data->pl.pa) * 5;
 	}
@@ -88,7 +88,8 @@ void	ft_hook(void *param)
 int	main(int ac, char **av)
 {
 	t_data *data;
-
+	mlx_texture_t *texture;
+	
 	if (ac != 2)
 		return (0);
 	data = (t_data *)ft_calloc(1, sizeof(t_data));
@@ -96,16 +97,56 @@ int	main(int ac, char **av)
 	if (!data)
 		return (1);
 	init_parse(data, av[1]);
-	data->world.skybox = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	// data->world.skybox = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	texture = mlx_load_png("./assets/textures/rickroll.png");
+	int i = 0;
+	int j = 0;
+	mlx_image_t *img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	int colors[texture->width * texture->height];
+	while (texture->pixels[i] && j < texture->width * texture->height)
+	{
+		colors[j] = get_rgba(texture->pixels[i], texture->pixels[i + 1], texture->pixels[i + 2], texture->pixels[i + 3]);
+		i += 4;
+		j++;
+	}
+	j= 0;
+	while (j < texture->width * texture->height)
+	{
+		mlx_put_pixel(img, j % texture->width, j / texture->height, colors[j]);
+		j++;
+	}
+	// while (colors[i] != 0)
+	// {
+
+	// 	printf("colors[%d] = %d\n", i, colors[i]);
+	// 	i++;
+	// }
+	// while (texture->pixels[j * 64 * 4])
+	// {
+	// 	// // mlx_put_pixel(img, i , get_rgba(texture->pixels[i], texture->pixels[i + 1], texture->pixels[i + 2], texture->pixels[i + 3]));
+	// 	// mlx_put_pixel(img, i , j , get_rgba(texture->pixels[i], texture->pixels[i + 1], texture->pixels[i + 2], texture->pixels[i + 3]));
+	// 	// i += 4;
+	// 	// j++;
+	// 	i = 0;
+	// 	while (i <= 64 * 4)
+	// 	{
+	// 		mlx_put_pixel(img, i , j , get_rgba(texture->pixels[i], texture->pixels[i + 1], texture->pixels[i + 2], texture->pixels[i + 3]));
+	// 		i += 4;
+	// 	}
+	// 	j++;
+	// }
+	// mlx_image_to_window(dat a->mlx, img, 0, 0);
 	// data->world.minim = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	// data->pl.img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	skybox(data);
+	// skybox(data);
 	// minimap(data);
-	init_player(data);
-	data->world.walls = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	mlx_image_to_window(data->mlx, data->world.skybox, 0, 0);
-	// mlx_image_to_window(data->mlx, data->world.minim, 0, 0);
-	mlx_loop_hook(data->mlx, ft_hook, data);
+	// init_player(data);
+	// data->world.walls = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	// mlx_image_to_window(data->mlx, data->world.skybox, 0, 0);
+	// // mlx_image_to_window(data->mlx, data->world.minim, 0, 0);
+	// mlx_loop_hook(data->mlx, ft_hook, data);
+	mlx_image_to_window(data->mlx, img, 0, 0);
+
 	mlx_loop(data->mlx);
 	return (0);
 }

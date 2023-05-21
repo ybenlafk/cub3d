@@ -6,11 +6,31 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:59:07 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/20 14:29:14 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/21 20:55:33 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define ARRAY_SIZE 64
+#define COLOR_RANGE 255
+
+int	*generateRandomColors(void)
+{
+	int	*color;
+	int	i;
+
+	color = malloc(ARRAY_SIZE * sizeof(int));
+	srand(time(NULL)); // Seed the random number generator with the current time
+	for (i = 0; i < ARRAY_SIZE; i++)
+	{
+		color[i] = get_rgba(rand() % COLOR_RANGE, rand() % COLOR_RANGE, rand() % COLOR_RANGE, 255);
+	}
+	return (color);
+}
 
 void	raycast(t_data *data, float player_x, float player_y,
 		float player_angle)
@@ -24,7 +44,7 @@ void	raycast(t_data *data, float player_x, float player_y,
 	int			color;
 
 	p.ray_angle_step = FOV / NUM_RAYS;
-	p.start_angle = player_angle - FOV / 2 + (FOV - VIEW_ANGLE) / 2;
+	p.start_angle = player_angle - FOV / 2;
 	p.ray_angle = p.start_angle;
 	p.i = 0;
 	while (p.i < NUM_RAYS)
@@ -78,10 +98,16 @@ void	raycast(t_data *data, float player_x, float player_y,
 		t.x1 = p.i;
 		t.y1 = wall_bottom;
 		distance_shade = (int)(255 - (p.perp_dist / MAX_RENDER_DISTANCE) * 255);
-		distance_shade = distance_shade <= 100 ? 100 : distance_shade; 
-		color = get_rgba(distance_shade, distance_shade, distance_shade,
-				255);
-		mlx_draw_line(data->world.walls, t, color);
+		distance_shade = distance_shade <= 100 ? 100 : distance_shade;
+		int *colors = generateRandomColors();
+		while (t.y0 < t.y1)
+		{
+			color = colors[t.y0 % ARRAY_SIZE];
+			
+			mlx_put_pixel(data->world.walls, t.x0, t.y0, color);
+			t.y0++;
+		}
+		// mlx_draw_line(data->world.walls, t, color);
 		p.ray_angle += p.ray_angle_step;
 		if (p.ray_angle >= p.start_angle + VIEW_ANGLE)
 			break ;

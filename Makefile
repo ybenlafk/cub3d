@@ -1,10 +1,10 @@
 NAME	:= cub3d
 CC		:= cc
-CFLAGS	:= -Iinclude -Ofast -g -Wall -Wextra -Werror
+CFLAGS	:= -Iinclude -Ofast -g #-Wall -Wextra -Werror
 HEADERS	:= include/cub3d.h
 LIBFT	:= libs/libft.a
 MLX		:= libs/libmlx.a
-LIBS	:= -lglfw -L/Users/aarbaoui/goinfre/.brew/opt/glfw/lib
+LIBS	:= -lglfw -L/Volumes/L/.brew/opt/glfw/lib
 # LIBS	:= -lglfw -L/Users/ybenlafk/.brew/opt/glfw/lib/
 SRCS := srcs/main.c \
 		srcs/parsing/parse.c \

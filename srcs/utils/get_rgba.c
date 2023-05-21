@@ -6,11 +6,16 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 19:58:21 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/19 19:58:28 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/21 21:34:32 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int get_rgba(int r, int g, int b, int a)
 {
     return (r << 24 | g << 16 | b << 8 | a);
+}
+
+int get_rgb(int r, int g, int b)
+{
+    return (r << 16 | g << 8 | b);
 }
