@@ -6,7 +6,7 @@
 /*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:59:07 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/22 13:51:40 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:28:11 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	raycast(t_data *data, float player_x, float player_y,
 	int			wall_bottom;
 	int			distance_shade;
 	int			color;
-
+	
 	p.ray_angle_step = FOV / NUM_RAYS;
 	p.start_angle = player_angle - FOV / 2;
 	p.ray_angle = p.start_angle;
@@ -83,16 +83,23 @@ void	raycast(t_data *data, float player_x, float player_y,
 		// distance_shade = (int)(255 - (p.perp_dist / MAX_RENDER_DISTANCE) * 255);
 		// distance_shade = distance_shade <= 100 ? 100 : distance_shade;
 		int offsetx, offsety;
-		int img_size = data->texture->width;
+		mlx_texture_t *img;
+		unsigned int	*tex;
+	
+		// if (data->pl.pa == PI / 2)
+		tex = data->tex_NO;	
+		img = data->NO;
+		int tile_size = img->width / 4;
 		if (stat == 1)
-			offsetx = (int)p.line_end_y % img_size;
+			offsetx = (int)p.line_end_y % tile_size;
 		else if (stat == 2)
-			offsetx = (int)p.line_end_x % img_size;
+			offsetx = (int)p.line_end_x % tile_size;
+	
 		for(int i = wall_top; i < wall_bottom; i++)
 		{
 			int dis_y = i + (wall_height / 2) - (HEIGHT / 2);
-			offsety = dis_y *((float)img_size / wall_height);
-			color = data->tex[img_size * offsety + offsetx];
+			offsety = dis_y *((float)img->height / wall_height);
+			color = tex[img->width * offsety + offsetx];
 			mlx_put_pixel(data->world.walls, p.i, i, color);
 		}
 		// mlx_draw_line(data->world.walls, t, color);

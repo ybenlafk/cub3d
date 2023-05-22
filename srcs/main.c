@@ -6,7 +6,7 @@
 /*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:16:54 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/22 13:55:31 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:44:55 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,22 @@ void	ft_hook(void *param)
 
 }
 
+void	fill_png(unsigned int *list, mlx_texture_t *png)
+{
+	int i = 0;
+	int j = 0;
+	while (png->pixels[i] && j <  png->width *  png->height)
+	{
+		list[j] = get_rgba(png->pixels[i], png->pixels[i + 1], png->pixels[i + 2], png->pixels[i + 3]);
+		i += 4;
+		j++;
+	}
+}
+
+
 int	main(int ac, char **av)
 {
 	t_data *data;
-	
 	if (ac != 2)
 		return (0);
 	data = (t_data *)ft_calloc(1, sizeof(t_data));
@@ -96,16 +108,16 @@ int	main(int ac, char **av)
 	if (!data)
 		return (1);
 	init_parse(data, av[1]);
-	data->texture = mlx_load_png("./assets/textures/wall_64.png");
-	int i = 0;
-	int j = 0;
-	while (data->texture->pixels[i] && j <  data->texture->width *  data->texture->height)
-	{
-		data->tex[j] = get_rgba(data->texture->pixels[i], data->texture->pixels[i + 1], data->texture->pixels[i + 2], data->texture->pixels[i + 3]);
-		i += 4;
-		j++;
-	}
-
+	data->NO = mlx_load_png("./assets/textures/STARG3.png");
+	data->SO = mlx_load_png("./assets/textures/wall_64.png");
+	data->WE = mlx_load_png("./assets/textures/wall_80.png");
+	data->EA = mlx_load_png("./assets/textures/STARG2.png");
+	if (!data->NO || !data->SO || !data->WE || !data->EA)
+		exit(1);
+	fill_png(data->tex_NO, data->NO);
+	fill_png(data->tex_EA, data->EA);
+	fill_png(data->tex_SO, data->SO);
+	fill_png(data->tex_WE, data->WE);
 	data->world.skybox = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	data->pl.img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	skybox(data);

@@ -6,7 +6,7 @@
 /*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:34:22 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/22 13:32:50 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:18:17 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,14 @@ typedef struct s_data
 	t_player	pl;
 	t_world		world;
 	t_var		vr;
-	mlx_texture_t *texture;
-	unsigned int	tex[10000000];
+	mlx_texture_t *NO;
+	mlx_texture_t *SO;
+	mlx_texture_t *WE;
+	mlx_texture_t *EA;
+	unsigned int	tex_NO[10000000];
+	unsigned int	tex_SO[10000000];
+	unsigned int	tex_WE[10000000];
+	unsigned int	tex_EA[10000000];
 }				t_data;
 //engine
 void			raycast(t_data *data, float player_x, float player_y,
