@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:59:07 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/21 20:55:33 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:51:40 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-#define ARRAY_SIZE 64
-#define COLOR_RANGE 255
-
-int	*generateRandomColors(void)
-{
-	int	*color;
-	int	i;
-
-	color = malloc(ARRAY_SIZE * sizeof(int));
-	srand(time(NULL)); // Seed the random number generator with the current time
-	for (i = 0; i < ARRAY_SIZE; i++)
-	{
-		color[i] = get_rgba(rand() % COLOR_RANGE, rand() % COLOR_RANGE, rand() % COLOR_RANGE, 255);
-	}
-	return (color);
-}
 
 void	raycast(t_data *data, float player_x, float player_y,
 		float player_angle)
@@ -66,10 +46,12 @@ void	raycast(t_data *data, float player_x, float player_y,
 		else
 			p.side_dist_y = (p.map_y + 1.0 - player_y) * p.delta_dist_y;
 		p.hit = 0;
+		int stat = 0;
 		while (!p.hit)
 		{
 			if (p.side_dist_x < p.side_dist_y)
 			{
+				stat = 1;
 				p.side_dist_x += p.delta_dist_x;
 				p.map_x += p.step_x;
 				p.hit = data->world.map[p.map_y / 32][p.map_x / 32] == '1';
@@ -78,6 +60,7 @@ void	raycast(t_data *data, float player_x, float player_y,
 			}
 			else
 			{
+				stat = 2;
 				p.side_dist_y += p.delta_dist_y;
 				p.map_y += p.step_y;
 				p.hit = data->world.map[p.map_y / 32][p.map_x / 32] == '1';
@@ -97,15 +80,20 @@ void	raycast(t_data *data, float player_x, float player_y,
 		t.y0 = wall_top;
 		t.x1 = p.i;
 		t.y1 = wall_bottom;
-		distance_shade = (int)(255 - (p.perp_dist / MAX_RENDER_DISTANCE) * 255);
-		distance_shade = distance_shade <= 100 ? 100 : distance_shade;
-		int *colors = generateRandomColors();
-		while (t.y0 < t.y1)
+		// distance_shade = (int)(255 - (p.perp_dist / MAX_RENDER_DISTANCE) * 255);
+		// distance_shade = distance_shade <= 100 ? 100 : distance_shade;
+		int offsetx, offsety;
+		int img_size = data->texture->width;
+		if (stat == 1)
+			offsetx = (int)p.line_end_y % img_size;
+		else if (stat == 2)
+			offsetx = (int)p.line_end_x % img_size;
+		for(int i = wall_top; i < wall_bottom; i++)
 		{
-			color = colors[t.y0 % ARRAY_SIZE];
-			
-			mlx_put_pixel(data->world.walls, t.x0, t.y0, color);
-			t.y0++;
+			int dis_y = i + (wall_height / 2) - (HEIGHT / 2);
+			offsety = dis_y *((float)img_size / wall_height);
+			color = data->tex[img_size * offsety + offsetx];
+			mlx_put_pixel(data->world.walls, p.i, i, color);
 		}
 		// mlx_draw_line(data->world.walls, t, color);
 		p.ray_angle += p.ray_angle_step;

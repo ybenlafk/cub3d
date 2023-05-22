@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:16:54 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/21 21:44:48 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:55:31 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	ft_hook(void *param)
 int	main(int ac, char **av)
 {
 	t_data *data;
-	mlx_texture_t *texture;
 	
 	if (ac != 2)
 		return (0);
@@ -97,56 +96,23 @@ int	main(int ac, char **av)
 	if (!data)
 		return (1);
 	init_parse(data, av[1]);
-	// data->world.skybox = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	texture = mlx_load_png("./assets/textures/rickroll.png");
+	data->texture = mlx_load_png("./assets/textures/wall_64.png");
 	int i = 0;
 	int j = 0;
-	mlx_image_t *img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	int colors[texture->width * texture->height];
-	while (texture->pixels[i] && j < texture->width * texture->height)
+	while (data->texture->pixels[i] && j <  data->texture->width *  data->texture->height)
 	{
-		colors[j] = get_rgba(texture->pixels[i], texture->pixels[i + 1], texture->pixels[i + 2], texture->pixels[i + 3]);
+		data->tex[j] = get_rgba(data->texture->pixels[i], data->texture->pixels[i + 1], data->texture->pixels[i + 2], data->texture->pixels[i + 3]);
 		i += 4;
 		j++;
 	}
-	j= 0;
-	while (j < texture->width * texture->height)
-	{
-		mlx_put_pixel(img, j % texture->width, j / texture->height, colors[j]);
-		j++;
-	}
-	// while (colors[i] != 0)
-	// {
 
-	// 	printf("colors[%d] = %d\n", i, colors[i]);
-	// 	i++;
-	// }
-	// while (texture->pixels[j * 64 * 4])
-	// {
-	// 	// // mlx_put_pixel(img, i , get_rgba(texture->pixels[i], texture->pixels[i + 1], texture->pixels[i + 2], texture->pixels[i + 3]));
-	// 	// mlx_put_pixel(img, i , j , get_rgba(texture->pixels[i], texture->pixels[i + 1], texture->pixels[i + 2], texture->pixels[i + 3]));
-	// 	// i += 4;
-	// 	// j++;
-	// 	i = 0;
-	// 	while (i <= 64 * 4)
-	// 	{
-	// 		mlx_put_pixel(img, i , j , get_rgba(texture->pixels[i], texture->pixels[i + 1], texture->pixels[i + 2], texture->pixels[i + 3]));
-	// 		i += 4;
-	// 	}
-	// 	j++;
-	// }
-	// mlx_image_to_window(dat a->mlx, img, 0, 0);
-	// data->world.minim = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	// data->pl.img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	// skybox(data);
-	// minimap(data);
-	// init_player(data);
-	// data->world.walls = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	// mlx_image_to_window(data->mlx, data->world.skybox, 0, 0);
-	// // mlx_image_to_window(data->mlx, data->world.minim, 0, 0);
-	// mlx_loop_hook(data->mlx, ft_hook, data);
-	mlx_image_to_window(data->mlx, img, 0, 0);
-
+	data->world.skybox = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	data->pl.img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	skybox(data);
+	init_player(data);
+	data->world.walls = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(data->mlx, data->world.skybox, 0, 0);
+	mlx_loop_hook(data->mlx, ft_hook, data);
 	mlx_loop(data->mlx);
 	return (0);
 }

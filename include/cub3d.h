@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:34:22 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/21 21:34:42 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:32:50 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ typedef struct s_data
 	t_player	pl;
 	t_world		world;
 	t_var		vr;
+	mlx_texture_t *texture;
+	unsigned int	tex[10000000];
 }				t_data;
 //engine
 void			raycast(t_data *data, float player_x, float player_y,
