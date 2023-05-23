@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:34:22 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 18:10:27 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:43:14 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ void			raycast(t_data *data, float player_x, float player_y,
 void			init_player(t_data *data);
 void			minimap(t_data *data);
 void			skybox(t_data *data);
+void			check_movment(t_data *data, float new_px, float new_py);
+void			move_player(t_data *data, t_var *p);
 // parsing
 void			init_parse(t_data *data, char *map_fi);
 // utils

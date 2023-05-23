@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:59:07 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 15:21:38 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:37:02 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,22 @@
 void	raycast(t_data *data, float player_x, float player_y,
 		float player_angle)
 {
-	t_line		t;
-	t_engine	p;
-	int			wall_height;
-	int			wall_top;
-	int			wall_bottom;
-	int			color;
-	
+	t_line			t;
+	t_engine		p;
+	int				wall_height;
+	int				wall_top;
+	int				wall_bottom;
+	int				color;
+	int				stat;
+	mlx_texture_t	*img;
+	unsigned int	*tex;
+	int				tile_size;
+	int				dis_y;
+	int				offsetx;
+	int				offsety;
+
+	offsetx = 0;
+	offsety = 0;
 	p.ray_angle_step = FOV / NUM_RAYS;
 	p.start_angle = player_angle - FOV / 2;
 	p.ray_angle = p.start_angle;
@@ -45,7 +54,7 @@ void	raycast(t_data *data, float player_x, float player_y,
 		else
 			p.side_dist_y = (p.map_y + 1.0 - player_y) * p.delta_dist_y;
 		p.hit = 0;
-		int stat = 0;
+		stat = 0;
 		while (!p.hit)
 		{
 			if (p.side_dist_x < p.side_dist_y)
@@ -79,10 +88,7 @@ void	raycast(t_data *data, float player_x, float player_y,
 		t.y0 = wall_top;
 		t.x1 = p.i;
 		t.y1 = wall_bottom;
-
-		int offsetx, offsety;
-		mlx_texture_t *img = NULL;
-		unsigned int	*tex;
+		img = NULL;
 		if (stat == 1 && p.ray_x > 0)
 		{
 			img = data->NO;
@@ -103,16 +109,15 @@ void	raycast(t_data *data, float player_x, float player_y,
 			img = data->EA;
 			tex = (unsigned int *)data->tex_EA;
 		}
-		int tile_size = img->width;
+		tile_size = img->width;
 		if (stat == 1)
 			offsetx = (int)p.line_end_y % tile_size;
 		else if (stat == 2)
 			offsetx = (int)p.line_end_x % tile_size;
-	
-		for(int i = wall_top; i < wall_bottom; i++)
+		for (int i = wall_top; i < wall_bottom; i++)
 		{
-			int dis_y = i + (wall_height / 2) - (HEIGHT / 2);
-			offsety = dis_y *((float)img->height / wall_height);
+			dis_y = i + (wall_height / 2) - (HEIGHT / 2);
+			offsety = dis_y * ((float)img->height / wall_height);
 			color = tex[img->width * offsety + offsetx];
 			mlx_put_pixel(data->world.walls, p.i, i, color);
 		}
