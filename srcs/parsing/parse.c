@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:24:39 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 15:37:52 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:59:20 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,10 @@ void	init_parse(t_data *data, char *map_fi)
 		line = get_next_line(fd);
 	}
 	data->world.map[i] = NULL;
-	if (is_surrounded(data->world.map))
-	{
-		printf("Error\n");
-		exit(0);
-	}
+	// if (is_surrounded(data->world.map))
+	// {
+	// 	printf("Error\n");
+	// 	exit(0);
+	// }
 	close(fd);
 }

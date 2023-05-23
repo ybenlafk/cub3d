@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:16:54 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 17:18:44 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/23 18:16:20 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	check_movment(t_data *data, float new_px, float new_py)
 {
-	int	cell_x;
-	int	cell_y;
+    int cell_x = (int)(new_px / 32);
+    int cell_y = (int)(new_py / 32);
 
-	cell_x = (int)new_px / 32;
-	cell_y = (int)new_py / 32;
-	if (data->world.map[cell_y][cell_x] != '1')
-	{
-		data->pl.px = new_px;
-		data->pl.py = new_py;
-	}
+	int new_cell_x = (int)((new_px + data->pl.pdx) / 32);
+	int new_cell_y = (int)((new_py + data->pl.pdy) / 32);
+    if (data->world.map[cell_y][new_cell_x] == '1'
+		|| data->world.map[new_cell_y][cell_x] == '1')
+        return;
+    data->pl.px = new_px;
+    data->pl.py = new_py;
 }
 
 void	move_player(t_data *data, t_var *p)
@@ -62,7 +62,7 @@ void	ft_hook(void *param)
 	int		my;
 	int		x = 0;
 	int		y = 0;
-
+	
 	data = (t_data *)param;
 	p.speed = 3;
 	p.new_px = data->pl.px;
@@ -70,10 +70,6 @@ void	ft_hook(void *param)
 	move_player(data, &p);
 	check_movment(data, p.new_px, p.new_py);
 	mlx_get_mouse_pos(data->mlx, &mx, &my);
-	// data->pl.pa = (float)x / 300;
-	// data->pl.pdx = cos(data->pl.pa) * 5;
-	// data->pl.pdy = sin(data->pl.pa) * 5;
-	// mlx_mouse_set_pos(data->mlx, );
 	data->pl.pa += (mx - 500) / 500.0 * SENSE;
 	data->pl.pdx = cos(data->pl.pa) * 5;
 	data->pl.pdy = sin(data->pl.pa) * 5;
