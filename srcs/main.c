@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:16:54 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 14:13:52 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:38:33 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_hook(void *param)
 	t_var	p;
 
 	data = (t_data *)param;
-	p.speed = 2;
+	p.speed = 3;
 	p.new_px = data->pl.px;
 	p.new_py = data->pl.py;
 	move_player(data, &p);
@@ -108,10 +108,10 @@ int	main(int ac, char **av)
 	if (!data)
 		return (1);
 	init_parse(data, av[1]);
-	data->NO = mlx_load_png("./assets/textures/backrooms.png");
-	data->SO = mlx_load_png("./assets/textures/backrooms.png");
-	data->WE = mlx_load_png("./assets/textures/backrooms.png");
-	data->EA = mlx_load_png("./assets/textures/backrooms.png");
+	data->NO = mlx_load_png("./assets/textures/STARG3_64.png");
+	data->EA = mlx_load_png("./assets/textures/STARG2_64.png");
+	data->SO = mlx_load_png("./assets/textures/STARG3_64.png");
+	data->WE = mlx_load_png("./assets/textures/STARG2_64.png");
 	if (!data->NO || !data->SO || !data->WE || !data->EA)
 		exit(1);
 	fill_png(data->tex_NO, data->NO);

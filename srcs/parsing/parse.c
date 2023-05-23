@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:24:39 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/19 20:13:31 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/23 15:08:49 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,16 @@ void	parse_params(t_data *data, char *line)
 		data->world.ceil_c = ft_strdup(line + 2);
 }
 
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
 void	init_parse(t_data *data, char *map_fi)
 {
 	int fd;
@@ -91,14 +101,16 @@ void	init_parse(t_data *data, char *map_fi)
 	char *line;
 
 	i = 0;
+	if (ft_strcmp(".cub", map_fi + (ft_strlen(map_fi) - 4)))
+		exit(0);
 	fd = open(map_fi, O_RDONLY);
 	if (fd < 0)
-		return ;
+		exit(0);
 	line = get_next_line(fd);
 
 	data->world.map = (char **)ft_calloc(1, sizeof(char *));
 	if (!data->world.map || fd < 0)
-		return ;
+		exit(0);
 	while (line && *line)
 	{
 		parse_params(data, line);
@@ -116,7 +128,7 @@ void	init_parse(t_data *data, char *map_fi)
 	if (is_surrounded(data->world.map))
 	{
 		printf("Error\n");
-		exit(0);
+		// exit(0);
 	}
 	close(fd);
 }

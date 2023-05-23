@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:59:07 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 14:25:46 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:34:45 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	raycast(t_data *data, float player_x, float player_y,
 			img = data->EA;
 			tex = (unsigned int *)data->tex_EA;
 		}
-		int tile_size = img->width / 4;
+		int tile_size = img->width;
 		if (stat == 1)
 			offsetx = (int)p.line_end_y % tile_size;
 		else if (stat == 2)
@@ -113,13 +113,9 @@ void	raycast(t_data *data, float player_x, float player_y,
 		{
 			int dis_y = i + (wall_height / 2) - (HEIGHT / 2);
 			offsety = dis_y *((float)img->height / wall_height);
-			// color = tex[img->width * offsety + offsetx] | distance_shade << 24;
-			// color = get_rgba(get_rgb(tex[img->width * offsety + offsetx]), distance_shade);
-			// add shading to the textures
 			color = tex[img->width * offsety + offsetx];
 			mlx_put_pixel(data->world.walls, p.i, i, color);
 		}
-		// mlx_draw_line(data->world.walls, t, color);
 		p.ray_angle += p.ray_angle_step;
 		if (p.ray_angle >= p.start_angle + VIEW_ANGLE)
 			break ;

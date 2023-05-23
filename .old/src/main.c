@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:38:38 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/19 18:04:42 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:37:51 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,11 @@ static void ft_hook(void* param)
     t_var p;
 
     data = (t_data *)param;
-    p.speed = 2;
+    p.speed = 4;
     p.new_px = data->pl.px;
     p.new_py = data->pl.py;
     if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT))
-        p->speed = 1;
+        p->speed = 2;
     if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
         exit(1);
     if (mlx_is_key_down(data->mlx, MLX_KEY_S))
