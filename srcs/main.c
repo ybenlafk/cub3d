@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:16:54 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 15:32:45 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:18:44 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ void	ft_hook(void *param)
 {
 	t_data	*data;
 	t_var	p;
+	int		mx;
+	int		my;
+	int		x = 0;
+	int		y = 0;
 
 	data = (t_data *)param;
 	p.speed = 3;
@@ -65,6 +69,15 @@ void	ft_hook(void *param)
 	p.new_py = data->pl.py;
 	move_player(data, &p);
 	check_movment(data, p.new_px, p.new_py);
+	mlx_get_mouse_pos(data->mlx, &mx, &my);
+	// data->pl.pa = (float)x / 300;
+	// data->pl.pdx = cos(data->pl.pa) * 5;
+	// data->pl.pdy = sin(data->pl.pa) * 5;
+	// mlx_mouse_set_pos(data->mlx, );
+	data->pl.pa += (mx - 500) / 500.0 * SENSE;
+	data->pl.pdx = cos(data->pl.pa) * 5;
+	data->pl.pdy = sin(data->pl.pa) * 5;
+	mlx_set_mouse_pos(data->mlx, 500, 500);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
 		data->pl.pa -= 0.04;
@@ -79,10 +92,8 @@ void	ft_hook(void *param)
 	}
 	mlx_delete_image(data->mlx, data->world.walls);
 	data->world.walls = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	
 	raycast(data, data->pl.px, data->pl.py, data->pl.pa);
 	mlx_image_to_window(data->mlx, data->world.walls, 0, 0);
-
 }
 
 void	fill_png(unsigned int *list, mlx_texture_t *png)
@@ -108,6 +119,7 @@ int	main(int ac, char **av)
 	if (!data)
 		return (1);
 	init_parse(data, av[1]);
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	data->NO = mlx_load_png("./assets/textures/STARG3_64.png");
 	data->EA = mlx_load_png("./assets/textures/STARG2_64.png");
 	data->SO = mlx_load_png("./assets/textures/STARG3_64.png");
