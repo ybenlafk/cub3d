@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:16:54 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/22 15:44:55 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:13:52 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	fill_png(unsigned int *list, mlx_texture_t *png)
 	int j = 0;
 	while (png->pixels[i] && j <  png->width *  png->height)
 	{
-		list[j] = get_rgba(png->pixels[i], png->pixels[i + 1], png->pixels[i + 2], png->pixels[i + 3]);
+		list[j] = get_rgba(png->pixels[i], png->pixels[i + 1], png->pixels[i + 2], 255);
 		i += 4;
 		j++;
 	}
@@ -108,10 +108,10 @@ int	main(int ac, char **av)
 	if (!data)
 		return (1);
 	init_parse(data, av[1]);
-	data->NO = mlx_load_png("./assets/textures/STARG3.png");
-	data->SO = mlx_load_png("./assets/textures/wall_64.png");
-	data->WE = mlx_load_png("./assets/textures/wall_80.png");
-	data->EA = mlx_load_png("./assets/textures/STARG2.png");
+	data->NO = mlx_load_png("./assets/textures/backrooms.png");
+	data->SO = mlx_load_png("./assets/textures/backrooms.png");
+	data->WE = mlx_load_png("./assets/textures/backrooms.png");
+	data->EA = mlx_load_png("./assets/textures/backrooms.png");
 	if (!data->NO || !data->SO || !data->WE || !data->EA)
 		exit(1);
 	fill_png(data->tex_NO, data->NO);

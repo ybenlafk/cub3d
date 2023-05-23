@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:59:07 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/22 15:28:11 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:25:46 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	raycast(t_data *data, float player_x, float player_y,
 	int			wall_height;
 	int			wall_top;
 	int			wall_bottom;
-	int			distance_shade;
 	int			color;
 	
 	p.ray_angle_step = FOV / NUM_RAYS;
@@ -80,15 +79,30 @@ void	raycast(t_data *data, float player_x, float player_y,
 		t.y0 = wall_top;
 		t.x1 = p.i;
 		t.y1 = wall_bottom;
-		// distance_shade = (int)(255 - (p.perp_dist / MAX_RENDER_DISTANCE) * 255);
-		// distance_shade = distance_shade <= 100 ? 100 : distance_shade;
+
 		int offsetx, offsety;
 		mlx_texture_t *img;
 		unsigned int	*tex;
-	
-		// if (data->pl.pa == PI / 2)
-		tex = data->tex_NO;	
-		img = data->NO;
+		if (stat == 1 && p.ray_x > 0)
+		{
+			img = data->NO;
+			tex = (unsigned int *)data->tex_NO;
+		}
+		else if (stat == 1 && p.ray_x < 0)
+		{
+			img = data->SO;
+			tex = (unsigned int *)data->tex_SO;
+		}
+		else if (stat == 2 && p.ray_y > 0)
+		{
+			img = data->WE;
+			tex = (unsigned int *)data->tex_WE;
+		}
+		else if (stat == 2 && p.ray_y < 0)
+		{
+			img = data->EA;
+			tex = (unsigned int *)data->tex_EA;
+		}
 		int tile_size = img->width / 4;
 		if (stat == 1)
 			offsetx = (int)p.line_end_y % tile_size;
@@ -99,6 +113,9 @@ void	raycast(t_data *data, float player_x, float player_y,
 		{
 			int dis_y = i + (wall_height / 2) - (HEIGHT / 2);
 			offsety = dis_y *((float)img->height / wall_height);
+			// color = tex[img->width * offsety + offsetx] | distance_shade << 24;
+			// color = get_rgba(get_rgb(tex[img->width * offsety + offsetx]), distance_shade);
+			// add shading to the textures
 			color = tex[img->width * offsety + offsetx];
 			mlx_put_pixel(data->world.walls, p.i, i, color);
 		}
