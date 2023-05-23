@@ -6,7 +6,7 @@
 /*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:24:39 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 15:08:49 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/23 15:29:03 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int	is_surrounded(char **map)
 		{
 			if (map[p.i][p.j] != '1' && map[p.i][p.j] != ' '
 				&& map[p.i][p.j] != '\t')
-				if (is_valid(&p, map))
-					return (1);
+					if (is_valid(&p, map))
+						return (1);
 			p.j++;
 		}
 		p.i++;
@@ -128,7 +128,7 @@ void	init_parse(t_data *data, char *map_fi)
 	if (is_surrounded(data->world.map))
 	{
 		printf("Error\n");
-		// exit(0);
+		exit(0);
 	}
 	close(fd);
 }
