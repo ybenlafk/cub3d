@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:34:22 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 15:38:18 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/23 18:10:27 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@
 # define WIDTH 1440
 # define HEIGHT 1080
 # define FOV 1.0472        // Field of View (60 degrees in radians)
-# define NUM_RAYS 1440     // Number of rays to cast
+# define NUM_RAYS WIDTH     // Number of rays to cast
 # define VIEW_ANGLE 1.0472 // Viewing angle (60 degrees in radians)
 # define WALL_SCALE 30     // Wall scale factor
 # define MAX_RENDER_DISTANCE 1000
 # define MAXWIDTH 64
 # define MAXHEIGHT 64
+# define SENSE 0.7
 
 typedef struct s_line
 {
