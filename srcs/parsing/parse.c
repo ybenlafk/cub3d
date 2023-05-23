@@ -6,7 +6,7 @@
 /*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:24:39 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 20:03:20 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:09:43 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,6 @@ int	is_valid(t_var *p, char **map)
 	if (!map[p->i + 1] || p->j == 0 || map[p->i + 1][0] == '\n')
 		return (1);
 	else if (!map[p->i - 1] || p->i == 0 || map[p->i - 1][0] == '\n')
-		return (1);
-	else if (is_empty(map[p->i + 1][p->j + 1]))
-		return (1);
-	else if (is_empty(map[p->i - 1][p->j - 1]))
-		return (1);
-	else if (is_empty(map[p->i - 1][p->j + 1]))
-		return (1);
-	else if (is_empty(map[p->i + 1][p->j - 1]))
 		return (1);
 	else if (is_empty(map[p->i][p->j + 1]))
 		return (1);
