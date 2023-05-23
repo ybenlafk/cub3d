@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 18:49:29 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 15:20:31 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:36:23 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	set_colorsize(int color_hex, int size)
 {
 	return (color_hex << 16 | size);
 }
-
 
 void	draw_square(mlx_image_t *image, int x, int y, int size, int color)
 {
@@ -36,11 +35,10 @@ void	draw_square(mlx_image_t *image, int x, int y, int size, int color)
 	}
 }
 
-
 void	minimap(t_data *data)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	j = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skybox.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:18:26 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 15:35:49 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:37:20 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void	skybox(t_data *data)
 		j = 0;
 		while (j < WIDTH)
 		{
-			mlx_put_pixel(data->world.skybox, j, i, get_rgba(ft_atoi(colors[0][0]), ft_atoi(colors[0][1]), ft_atoi(colors[0][2]), 255));
+			mlx_put_pixel(data->world.skybox, j, i,
+					get_rgba(ft_atoi(colors[0][0]), ft_atoi(colors[0][1]),
+						ft_atoi(colors[0][2]), 255));
 			j++;
 		}
 		i++;
@@ -39,7 +41,9 @@ void	skybox(t_data *data)
 		j = 0;
 		while (j < WIDTH)
 		{
-			mlx_put_pixel(data->world.skybox, j, i, get_rgba(ft_atoi(colors[1][0]), ft_atoi(colors[1][1]), ft_atoi(colors[1][2]), 255));
+			mlx_put_pixel(data->world.skybox, j, i,
+					get_rgba(ft_atoi(colors[1][0]), ft_atoi(colors[1][1]),
+						ft_atoi(colors[1][2]), 255));
 			j++;
 		}
 		i++;

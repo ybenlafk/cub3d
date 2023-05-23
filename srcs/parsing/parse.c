@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:24:39 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 18:16:53 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:36:19 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int	is_surrounded(char **map)
 		{
 			if (map[p.i][p.j] != '1' && map[p.i][p.j] != ' '
 				&& map[p.i][p.j] != '\t')
-					if (is_valid(&p, map))
-						return (1);
+				if (is_valid(&p, map))
+					return (1);
 			p.j++;
 		}
 		p.i++;
