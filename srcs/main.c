@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:16:54 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 14:38:33 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/23 15:23:49 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	ft_hook(void *param)
 
 void	fill_png(unsigned int *list, mlx_texture_t *png)
 {
-	int i = 0;
-	int j = 0;
+	unsigned int i = 0;
+	unsigned int j = 0;
 	while (png->pixels[i] && j <  png->width *  png->height)
 	{
 		list[j] = get_rgba(png->pixels[i], png->pixels[i + 1], png->pixels[i + 2], 255);

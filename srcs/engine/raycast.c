@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:59:07 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 14:34:45 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/23 15:21:38 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	raycast(t_data *data, float player_x, float player_y,
 		t.y1 = wall_bottom;
 
 		int offsetx, offsety;
-		mlx_texture_t *img;
+		mlx_texture_t *img = NULL;
 		unsigned int	*tex;
 		if (stat == 1 && p.ray_x > 0)
 		{
