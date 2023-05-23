@@ -6,67 +6,11 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:16:54 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 19:29:27 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:47:59 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	check_movment(t_data *data, float new_px, float new_py)
-{
-	int	cell_x;
-	int	cell_y;
-	int	new_cell_x;
-	int	new_cell_y;
-	int	new_cell_x_slide;
-	int	new_cell_y_slide;
-
-	cell_x = (int)(new_px / 32);
-	cell_y = (int)(new_py / 32);
-	new_cell_x = (int)((new_px + data->pl.pdx) / 32);
-	new_cell_y = (int)((new_py + data->pl.pdy) / 32);
-	if (data->world.map[cell_y][new_cell_x] == '1'
-		&& data->world.map[new_cell_y][cell_x] == '1')
-		return ;
-	if (data->world.map[cell_y][new_cell_x] == '1')
-		new_px = data->pl.px;
-	if (data->world.map[new_cell_y][cell_x] == '1')
-		new_py = data->pl.py;
-	new_cell_x_slide = (int)((new_px + data->pl.pdx) / 32);
-	new_cell_y_slide = (int)((new_py + data->pl.pdy) / 32);
-	if (data->world.map[cell_y][new_cell_x_slide] == '1'
-		|| data->world.map[new_cell_y_slide][cell_x] == '1')
-		return ;
-	data->pl.px = new_px;
-	data->pl.py = new_py;
-}
-void	move_player(t_data *data, t_var *p)
-{
-	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT))
-		p->speed = 2;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
-		exit(1);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-	{
-		p->new_px -= data->pl.pdx / p->speed;
-		p->new_py -= data->pl.pdy / p->speed;
-	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
-	{
-		p->new_px += data->pl.pdx / p->speed;
-		p->new_py += data->pl.pdy / p->speed;
-	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-	{
-		p->new_px -= data->pl.pdy / p->speed;
-		p->new_py += data->pl.pdx / p->speed;
-	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-	{
-		p->new_px += data->pl.pdy / p->speed;
-		p->new_py -= data->pl.pdx / p->speed;
-	}
-}
 
 void	ft_hook(void *param)
 {
