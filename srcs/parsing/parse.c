@@ -6,7 +6,7 @@
 /*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:24:39 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 15:29:03 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/23 15:37:52 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,6 @@ void	parse_params(t_data *data, char *line)
 		data->world.floor_c = ft_strdup(line + 2);
 	else if (ft_strncmp(line, "C ", 2) == 0)
 		data->world.ceil_c = ft_strdup(line + 2);
-}
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
 void	init_parse(t_data *data, char *map_fi)

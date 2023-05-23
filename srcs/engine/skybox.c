@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skybox.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:18:26 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/20 12:00:28 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/23 15:35:49 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,6 @@ void	skybox(t_data *data)
 		}
 		i++;
 	}
+	free_all(colors[0]);
+	free_all(colors[1]);
 }

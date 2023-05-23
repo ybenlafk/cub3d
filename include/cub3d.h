@@ -6,7 +6,7 @@
 /*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:34:22 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/22 15:18:17 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/23 15:38:18 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,5 +149,8 @@ int				is_map(char *line);
 int				get_step(float x);
 void			mlx_draw_line(mlx_image_t *image, t_line t, int color);
 int				get_rgba(int r, int g, int b, int a);
-int get_rgb(int r, int g, int b);
+int 			get_rgb(int r, int g, int b);
+void			free_all(char **s);
+int				ft_strcmp(char *s1, char *s2);
+
 #endif
