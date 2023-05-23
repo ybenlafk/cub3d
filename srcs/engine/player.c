@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 18:45:52 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/19 20:16:55 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/23 15:16:46 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	init_player(t_data *data)
 			if (data->world.map[i][j] == 'N' || data->world.map[i][j] == 'S' ||
 				data->world.map[i][j] == 'E' || data->world.map[i][j] == 'W')
 			{
-				data->pl.px = (j * 32);
-				data->pl.py = (i * 32);
+				data->pl.px = (j * 32) + 16;
+				data->pl.py = (i * 32) + 16;
 				if (data->world.map[i][j] == 'N')
 					data->pl.pa = PI / 2;
 				if (data->world.map[i][j] == 'S')

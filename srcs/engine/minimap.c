@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 18:49:29 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/20 12:46:15 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/23 15:20:31 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	minimap(t_data *data)
 				draw_square(data->world.minim, j * 4, i * 4, 4, 0xFFF00FFF);
 			else if (data->world.map[i][j] == '0')
 				draw_square(data->world.minim, j * 4, i * 4, 4, 0xFF0000FF);
-			else if (data->world.map[i][j] == 'N')
+			else if (ft_strchr("NSEW", data->world.map[i][j]))
 				draw_square(data->pl.img, j * 4, i * 4, 4, 0xFFFFFFFF);
 			j++;
 		}
