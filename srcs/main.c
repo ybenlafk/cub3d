@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:16:54 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/24 14:41:51 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:25:25 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ void	ft_hook(void *param)
 		data->pl.pdx = cos(data->pl.pa) * 5;
 		data->pl.pdy = sin(data->pl.pa) * 5;
 	}
+	if (data->pl.pa > 2 * PI)
+		data->pl.pa -= 2 * PI;
+	if (data->pl.pa < 0)
+		data->pl.pa += 2 * PI;
 	mlx_delete_image(data->mlx, data->world.walls);
 	data->world.walls = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	raycast(data, data->pl.px, data->pl.py, data->pl.pa);
