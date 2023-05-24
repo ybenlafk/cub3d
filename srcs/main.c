@@ -6,7 +6,7 @@
 /*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:16:54 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/24 15:52:24 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:43:50 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ void	ft_hook(void *param)
 		data->pl.pdx = cos(data->pl.pa) * 5;
 		data->pl.pdy = sin(data->pl.pa) * 5;
 	}
+	if (data->pl.pa > 2 * PI)
+		data->pl.pa -= 2 * PI;
+	if (data->pl.pa < 0)
+		data->pl.pa += 2 * PI;
 	mlx_delete_image(data->mlx, data->world.walls);
 	data->world.walls = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	raycast(data, data->pl.px, data->pl.py, data->pl.pa);
