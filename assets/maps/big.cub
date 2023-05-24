@@ -1,7 +1,8 @@
-NO ./assets/textures/STARG3.png
-SO ./assets/textures/wall_64.png
-WE ./assets/textures/wall_80.png
-EA ./assets/textures/STARG2.png
+NO  ./assets/textures/STARG3_64.png
+WE  ./assets/textures/STARG3_64.png
+EA  ./assets/textures/STARG2_64.png
+SO  ./assets/textures/STARG2_64.png
+
 
 F 58, 58, 59
 C 147, 148, 153
