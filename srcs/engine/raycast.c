@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:59:07 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/24 14:08:53 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:46:27 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,10 @@ void	raycast(t_data *data, float player_x, float player_y,
 		
 		for (int i = wall_top; i < wall_bottom; i++)
 		{
-			dis_y = i + (wall_height / 2) - (HEIGHT / 2);
-			offsety = dis_y * ((float)img->height / wall_height);
-			color = tex[img->width * offsety + offsetx];
-			mlx_put_pixel(data->world.walls, p.i, i, color);
+		    dis_y = i + (wall_height / 2) - (HEIGHT / 2);
+		    offsety = dis_y * ((float)img->height / wall_height);
+		    color = tex[img->width * offsety + offsetx];
+		    mlx_put_pixel(data->world.walls, p.i, i, color);
 		}
 		p.ray_angle += p.ray_angle_step;
 		if (p.ray_angle >= p.start_angle + VIEW_ANGLE)

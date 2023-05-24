@@ -6,7 +6,7 @@
 /*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:16:54 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/24 14:41:51 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:52:24 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,19 @@ void	ft_hook(void *param)
 	p.new_py = data->pl.py;
 	move_player(data, &p);
 	check_movment(data, p.new_px, p.new_py);
-	mlx_get_mouse_pos(data->mlx, &mx, &my);
-	data->pl.pa += (mx - 500) / 500.0 * SENSE;
-	data->pl.pdx = cos(data->pl.pa) * 5;
-	data->pl.pdy = sin(data->pl.pa) * 5;
-	mlx_set_mouse_pos(data->mlx, 500, 500);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT_SHIFT))
+	{
+		mlx_set_cursor_mode(data->mlx, MLX_MOUSE_NORMAL);
+	}
+	else
+	{
+		mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
+		mlx_get_mouse_pos(data->mlx, &mx, &my);
+		data->pl.pa += (mx - 500) / 500.0 * SENSE;
+		data->pl.pdx = cos(data->pl.pa) * 5;
+		data->pl.pdy = sin(data->pl.pa) * 5;
+		mlx_set_mouse_pos(data->mlx, 500, 500);
+	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
 		data->pl.pa -= 0.04;
