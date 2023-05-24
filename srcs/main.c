@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:16:54 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 20:03:36 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:33:52 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	ft_minimap_hook(void *param)
+{
+	t_data	*data;
+
+	data = (t_data *)param;
+	data->world.minim = mlx_new_image(data->mlx, data->world.map_width, data->world.map_height);
+	minimap(data);
+	mlx_image_to_window(data->mlx, data->world.minim, 0, 0);
+
+}
 void	ft_hook(void *param)
 {
 	t_data	*data;
@@ -50,6 +60,7 @@ void	ft_hook(void *param)
 	data->world.walls = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	raycast(data, data->pl.px, data->pl.py, data->pl.pa);
 	mlx_image_to_window(data->mlx, data->world.walls, 0, 0);
+
 }
 
 void	fill_png(unsigned int *list, mlx_texture_t *png)
@@ -71,18 +82,21 @@ void	fill_png(unsigned int *list, mlx_texture_t *png)
 int	main(int ac, char **av)
 {
 	t_data *data;
+
 	if (ac != 2)
 		return (0);
 	data = (t_data *)ft_calloc(1, sizeof(t_data));
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!data)
 		return (1);
-	init_parse(data, av[1]);
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
+	mlx_set_mouse_pos(data->mlx, 500, 500);
+	init_parse(data, av[1]);
 	data->NO = mlx_load_png("./assets/textures/STARG3_64.png");
 	data->EA = mlx_load_png("./assets/textures/STARG2_64.png");
 	data->SO = mlx_load_png("./assets/textures/STARG3_64.png");
 	data->WE = mlx_load_png("./assets/textures/STARG2_64.png");
+	data->world.walls = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!data->NO || !data->SO || !data->WE || !data->EA)
 		exit(1);
 	fill_png(data->tex_NO, data->NO);
@@ -93,8 +107,8 @@ int	main(int ac, char **av)
 	data->pl.img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	skybox(data);
 	init_player(data);
-	data->world.walls = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(data->mlx, data->world.skybox, 0, 0);
+	// mlx_loop_hook(data->mlx, ft_minimap_hook, data);
 	mlx_loop_hook(data->mlx, ft_hook, data);
 	mlx_loop(data->mlx);
 	return (0);

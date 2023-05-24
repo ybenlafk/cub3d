@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:59:07 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 19:37:02 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:08:53 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	raycast(t_data *data, float player_x, float player_y,
 		wall_top = wall_top < 0 ? 0 : wall_top;
 		wall_bottom = HEIGHT / 2 + wall_height / 2;
 		wall_bottom = wall_bottom > HEIGHT ? HEIGHT : wall_bottom;
+		
 		t.x0 = p.i;
 		t.y0 = wall_top;
 		t.x1 = p.i;
@@ -114,6 +115,7 @@ void	raycast(t_data *data, float player_x, float player_y,
 			offsetx = (int)p.line_end_y % tile_size;
 		else if (stat == 2)
 			offsetx = (int)p.line_end_x % tile_size;
+		
 		for (int i = wall_top; i < wall_bottom; i++)
 		{
 			dis_y = i + (wall_height / 2) - (HEIGHT / 2);

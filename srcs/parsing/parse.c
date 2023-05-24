@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:24:39 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 20:09:43 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/24 13:50:32 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,4 +198,6 @@ void	init_parse(t_data *data, char *map_fi)
 		exit(0);
 	}
 	close(fd);
+	calculate_map_dimensions(data);
+	printf("map_width = %d\n", data->world.map_width);
 }

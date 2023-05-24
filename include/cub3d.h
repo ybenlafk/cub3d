@@ -6,7 +6,7 @@
 /*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:34:22 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 19:43:14 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/24 13:50:15 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ typedef struct s_world
 	char		*ea;
 	char		*floor_c;
 	char		*ceil_c;
-	int			width;
-	int			height;
+	int			map_width;
+	int			map_height;
 	mlx_image_t	*walls;
 	mlx_image_t	*minim;
 	mlx_image_t	*skybox;
@@ -155,5 +155,5 @@ int				get_rgba(int r, int g, int b, int a);
 int 			get_rgb(int r, int g, int b);
 void			free_all(char **s);
 int				ft_strcmp(char *s1, char *s2);
-
+void calculate_map_dimensions(t_data* data);
 #endif
