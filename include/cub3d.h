@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:34:22 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/24 13:50:15 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:40:25 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,5 +155,6 @@ int				get_rgba(int r, int g, int b, int a);
 int 			get_rgb(int r, int g, int b);
 void			free_all(char **s);
 int				ft_strcmp(char *s1, char *s2);
-void calculate_map_dimensions(t_data* data);
+void 			calculate_map_dimensions(t_data* data);
+void			ft_error(char *str);
 #endif

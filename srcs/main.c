@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:16:54 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/24 14:33:52 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:41:51 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,21 @@ void	fill_png(unsigned int *list, mlx_texture_t *png)
 	}
 }
 
+int check_texture(t_data *data)
+{
+	if (!data->NO || !data->SO || !data->WE || !data->EA)
+		return (1);
+	if (data->NO->height != 64 || data->NO->width != 64)
+		return (printf("Error\n🚨: Image error\n"), 1);
+	if (data->SO->height != 64 || data->SO->width != 64)
+		return (printf("Error\n🚨: Image error\n"), 1);
+	if (data->WE->height != 64 || data->WE->width != 64)
+		return (printf("Error\n🚨: Image error\n"), 1);
+	if (data->EA->height != 64 || data->EA->width != 64)
+		return (printf("Error\n🚨: Image error\n"), 1);
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_data *data;
@@ -92,10 +107,10 @@ int	main(int ac, char **av)
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_set_mouse_pos(data->mlx, 500, 500);
 	init_parse(data, av[1]);
-	data->NO = mlx_load_png("./assets/textures/STARG3_64.png");
-	data->EA = mlx_load_png("./assets/textures/STARG2_64.png");
-	data->SO = mlx_load_png("./assets/textures/STARG3_64.png");
-	data->WE = mlx_load_png("./assets/textures/STARG2_64.png");
+	data->NO = mlx_load_png(data->world.no);
+	data->SO = mlx_load_png(data->world.so);
+	data->WE = mlx_load_png(data->world.we);
+	data->EA = mlx_load_png(data->world.ea);
 	data->world.walls = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!data->NO || !data->SO || !data->WE || !data->EA)
 		exit(1);

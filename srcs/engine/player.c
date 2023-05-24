@@ -6,7 +6,7 @@
 /*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 18:45:52 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 20:04:15 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/23 22:24:30 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	check_movment(t_data *data, float new_px, float new_py)
 void	move_player(t_data *data, t_var *p)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT))
-		p->speed = 2;
+		p->speed = 1;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		exit(1);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))

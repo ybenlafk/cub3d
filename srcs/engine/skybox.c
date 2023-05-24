@@ -3,14 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   skybox.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 20:18:26 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 19:37:20 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:29:48 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	is_digit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
+
+int	all_int(char **av)
+{
+	int	i;
+	int	j;
+	char *s;
+
+	i = 0;
+	while (av[i])
+	{
+		j = 0;
+		if (av[i][j] == '-')
+			j++;
+		s = ft_strtrim(av[i], " \n\t\v\f\r");
+		if (!s)
+			return (1);
+		while (s[j])
+			if (!is_digit(s[j++]))
+				return (free(s), 1);
+		i++;
+		free(s);
+	}
+	return (0);
+}
 
 void	skybox(t_data *data)
 {
@@ -22,6 +53,14 @@ void	skybox(t_data *data)
 	j = 0;
 	colors[0] = ft_split(data->world.ceil_c, ',');
 	colors[1] = ft_split(data->world.floor_c, ',');
+	if (!colors[0] || !colors[1])
+		ft_error("Error\n🚨: Invalid colors\n");
+	if (all_int(colors[0]) || all_int(colors[1]))
+	{
+		free_all(colors[0]);
+		free_all(colors[1]);
+		ft_error("Error\n🚨: Invalid colors\n");
+	}
 	while (i <= HEIGHT / 2)
 	{
 		j = 0;

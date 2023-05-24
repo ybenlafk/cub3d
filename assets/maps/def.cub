@@ -4,7 +4,7 @@ EA  ./assets/textures/STARG2_64.png
 SO  ./assets/textures/STARG2_64.png
 
 F 58, 58, 59
-C 147, 148, 153
+C 147, 148, 255
 
 111111111111111
 100000100000001

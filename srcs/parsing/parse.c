@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:24:39 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/24 13:50:32 by aarbaoui         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:39:28 by ybenlafk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ft_error(char *str)
+{
+	printf("%s", str);
+	exit(0);
+}
 
 int	is_empty(char c)
 {
@@ -55,6 +61,22 @@ int	is_surrounded(char **map)
 	}
 	return (0);
 }
+void	parse_params_2(t_data *data, char *line, int *is)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if (ft_strncmp(line, "F ", 2) == 0)
+	{
+		data->world.floor_c = ft_strtrim(line + 2, " \t\n");
+		(*is)++;
+	}
+	else if (ft_strncmp(line, "C ", 2) == 0)
+	{
+		data->world.ceil_c = ft_strtrim(line + 2, " \t\n");
+		(*is)++;
+	}
+}
 
 void	parse_params(t_data *data, char *line, int *is)
 {
@@ -64,33 +86,25 @@ void	parse_params(t_data *data, char *line, int *is)
 	if (ft_strncmp(line, "NO ", 3) == 0)
 	{
 		data->world.no = ft_strtrim(line + 3, " \t\n");
-		(*is)++;	
+		(*is)++;
 	}
 	else if (ft_strncmp(line, "SO ", 3) == 0)
 	{
 		data->world.so = ft_strtrim(line + 3, " \t\n");
-		(*is)++;	
+		(*is)++;
 	}
 	else if (ft_strncmp(line, "WE ", 3) == 0)
 	{
 		data->world.we = ft_strtrim(line + 3, " \t\n");
-		(*is)++;	
+		(*is)++;
 	}
 	else if (ft_strncmp(line, "EA ", 3) == 0)
 	{
 		data->world.ea = ft_strtrim(line + 3, " \t\n");
-		(*is)++;	
+		(*is)++;
 	}
-	else if (ft_strncmp(line, "F ", 2) == 0)
-	{
-		data->world.floor_c = ft_strtrim(line + 2, " \t\n");
-		(*is)++;	
-	}
-	else if (ft_strncmp(line, "C ", 2) == 0)
-	{
-		data->world.ceil_c = ft_strtrim(line + 2, " \t\n");
-		(*is)++;	
-	}
+	else
+		parse_params_2(data, line, is);
 }
 
 void	is_valid_map(char **map)
@@ -109,10 +123,7 @@ void	is_valid_map(char **map)
 			&& map[i][j] != '0' && map[i][j] != '1'
 			&& map[i][j] != ' ' && map[i][j] != '\t'
 			&& map[i][j] != '\n')
-			{
-				printf("Error\n");
-				exit(0);
-			}
+				ft_error("Error\n");
 			j++;
 		}
 		i++;
@@ -140,30 +151,14 @@ void	check_player(t_data *data)
 		i++;
 	}
 	if (cut != 1)
-	{
-		printf("Error\n");
-		exit(0);
-	}
+		ft_error("Error\n");
 }
 
-void	init_parse(t_data *data, char *map_fi)
+void	fill_data(t_data *data, char *line, int fd, int is)
 {
-	int fd;
-	int i;
-	char *line;
-	static int is;
+	int	i;
+
 	i = 0;
-	if (ft_strcmp(".cub", map_fi + (ft_strlen(map_fi) - 4)))
-		exit(0);
-	fd = open(map_fi, O_RDONLY);
-	if (fd < 0)
-		exit(0);
-	line = get_next_line(fd);
-	if(!line)
-		exit(0);
-	data->world.map = (char **)ft_calloc(1, sizeof(char *));
-	if (!data->world.map || fd < 0)
-		exit(0);
 	while (line && *line && !is_map(line))
 	{
 		parse_params(data, line, &is);
@@ -175,29 +170,38 @@ void	init_parse(t_data *data, char *map_fi)
 	while (line && *line)
 	{
 		if (!is_map(line))
-		{
-			printf("Error\n");
-			exit(0);
-		}
+			ft_error("Error\n");
 		if (line && *line)
 		{
 			data->world.map[i] = ft_strdup(line);
-			i++;
-			data->world.map = ft_realloc(data->world.map, (i + 1)
+			data->world.map = ft_realloc(data->world.map, (++i + 1)
 					* sizeof(char *));
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
 	data->world.map[i] = NULL;
+}
+
+void	init_parse(t_data *data, char *map_fi)
+{
+	int fd;
+	char *line;
+	static int is;
+
+	if (ft_strcmp(".cub", map_fi + (ft_strlen(map_fi) - 4)))
+		ft_error("Error\n");
+	fd = open(map_fi, O_RDONLY);
+	if (fd < 0)
+		ft_error("Error\nFd error\n");
+	line = get_next_line(fd);
+	data->world.map = (char **)ft_calloc(1, sizeof(char *));
+	if (!data->world.map || !line)
+		ft_error("Error\n");
+	fill_data(data, line, fd, is);
 	check_player(data);
 	is_valid_map(data->world.map);
 	if (is_surrounded(data->world.map))
-	{
-		printf("Error\n");
-		exit(0);
-	}
+		ft_error("Error\n");
 	close(fd);
-	calculate_map_dimensions(data);
-	printf("map_width = %d\n", data->world.map_width);
 }
