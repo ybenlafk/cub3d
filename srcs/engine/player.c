@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 18:45:52 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/23 22:24:30 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/25 09:21:42 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,34 @@ void	check_movment(t_data *data, float new_px, float new_py)
 	data->pl.px = new_px;
 	data->pl.py = new_py;
 }
+
+void	change_angle(t_data *data)
+{
+	int	mx;
+	int	my;
+
+	mx = 0;
+	my = 0;
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
+	mlx_get_mouse_pos(data->mlx, &mx, &my);
+	data->pl.pa += (mx - 500) / 500.0 * SENSE;
+	data->pl.pdx = cos(data->pl.pa) * 5;
+	data->pl.pdy = sin(data->pl.pa) * 5;
+	mlx_set_mouse_pos(data->mlx, 500, 500);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+	{
+		data->pl.pa -= 0.04;
+		data->pl.pdx = cos(data->pl.pa) * 5;
+		data->pl.pdy = sin(data->pl.pa) * 5;
+	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+	{
+		data->pl.pa += 0.04;
+		data->pl.pdx = cos(data->pl.pa) * 5;
+		data->pl.pdy = sin(data->pl.pa) * 5;
+	}
+}
+
 void	move_player(t_data *data, t_var *p)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT))
@@ -100,4 +128,5 @@ void	move_player(t_data *data, t_var *p)
 		p->new_px += data->pl.pdy / p->speed;
 		p->new_py -= data->pl.pdx / p->speed;
 	}
+	change_angle(data);
 }

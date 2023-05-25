@@ -3,31 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybenlafk <ybenlafk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarbaoui <aarbaoui@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:16:54 by aarbaoui          #+#    #+#             */
-/*   Updated: 2023/05/24 19:43:50 by ybenlafk         ###   ########.fr       */
+/*   Updated: 2023/05/25 09:21:24 by aarbaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_minimap_hook(void *param)
+void	update(t_data *data)
 {
-	t_data	*data;
-
-	data = (t_data *)param;
-	data->world.minim = mlx_new_image(data->mlx, data->world.map_width, data->world.map_height);
-	minimap(data);
-	mlx_image_to_window(data->mlx, data->world.minim, 0, 0);
-
+	mlx_delete_image(data->mlx, data->world.walls);
+	data->world.walls = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	raycast(data, data->pl.px, data->pl.py, data->pl.pa);
+	mlx_image_to_window(data->mlx, data->world.walls, 0, 0);
 }
 void	ft_hook(void *param)
 {
 	t_data	*data;
 	t_var	p;
-	int		mx;
-	int		my;
 	int		x;
 	int		y;
 
@@ -39,40 +34,11 @@ void	ft_hook(void *param)
 	p.new_py = data->pl.py;
 	move_player(data, &p);
 	check_movment(data, p.new_px, p.new_py);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT_SHIFT))
-	{
-		mlx_set_cursor_mode(data->mlx, MLX_MOUSE_NORMAL);
-	}
-	else
-	{
-		mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
-		mlx_get_mouse_pos(data->mlx, &mx, &my);
-		data->pl.pa += (mx - 500) / 500.0 * SENSE;
-		data->pl.pdx = cos(data->pl.pa) * 5;
-		data->pl.pdy = sin(data->pl.pa) * 5;
-		mlx_set_mouse_pos(data->mlx, 500, 500);
-	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-	{
-		data->pl.pa -= 0.04;
-		data->pl.pdx = cos(data->pl.pa) * 5;
-		data->pl.pdy = sin(data->pl.pa) * 5;
-	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-	{
-		data->pl.pa += 0.04;
-		data->pl.pdx = cos(data->pl.pa) * 5;
-		data->pl.pdy = sin(data->pl.pa) * 5;
-	}
 	if (data->pl.pa > 2 * PI)
 		data->pl.pa -= 2 * PI;
 	if (data->pl.pa < 0)
 		data->pl.pa += 2 * PI;
-	mlx_delete_image(data->mlx, data->world.walls);
-	data->world.walls = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	raycast(data, data->pl.px, data->pl.py, data->pl.pa);
-	mlx_image_to_window(data->mlx, data->world.walls, 0, 0);
-
+	update(data);
 }
 
 void	fill_png(unsigned int *list, mlx_texture_t *png)
@@ -114,6 +80,8 @@ int	main(int ac, char **av)
 		return (0);
 	data = (t_data *)ft_calloc(1, sizeof(t_data));
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
+	mlx_set_setting(MLX_FULLSCREEN, true);
+	mlx_set_setting(MLX_DECORATED, false);
 	if (!data)
 		return (1);
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
@@ -135,7 +103,6 @@ int	main(int ac, char **av)
 	skybox(data);
 	init_player(data);
 	mlx_image_to_window(data->mlx, data->world.skybox, 0, 0);
-	// mlx_loop_hook(data->mlx, ft_minimap_hook, data);
 	mlx_loop_hook(data->mlx, ft_hook, data);
 	mlx_loop(data->mlx);
 	return (0);
