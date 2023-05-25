@@ -4,8 +4,8 @@ CFLAGS	:= -Iinclude -Ofast -Wall -Wextra -Werror
 HEADERS	:= include/cub3d.h
 LIBFT	:= libs/libft.a
 MLX		:= libs/libmlx.a
-LIBS	:= -lglfw -L/Volumes/L/.brew/opt/glfw/lib
-# LIBS	:= -lglfw -L/Users/ybenlafk/.brew/opt/glfw/lib/
+# LIBS	:= -lglfw -L/Volumes/L/.brew/opt/glfw/lib
+LIBS	:= -lglfw -L/Users/ybenlafk/.brew/opt/glfw/lib/
 SRCS := srcs/main.c \
 		srcs/parsing/parse.c \
 		srcs/engine/raycast.c \
